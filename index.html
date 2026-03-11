@@ -1,0 +1,1380 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Villa Reserve</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Sarabun:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #B8922A;
+  --gold2: #D4AF5A;
+  --gold-bg: rgba(184,146,42,0.08);
+  --white: #FFFFFF;
+  --bg: #F5F2EC;
+  --border: #E2DAC8;
+  --border2: rgba(184,146,42,0.3);
+  --text: #1A1410;
+  --text2: #5A4F3E;
+  --text3: #9A8E7E;
+  --green: #2E7D52;
+  --green-bg: rgba(46,125,82,0.1);
+  --orange: #B86A10;
+  --orange-bg: rgba(184,106,16,0.1);
+  --red: #AA2828;
+  --red-bg: rgba(170,40,40,0.1);
+  --r: 12px;
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;font-weight:400;max-width:430px;margin:0 auto;min-height:100vh;}
+
+.topbar{background:var(--white);border-bottom:1px solid var(--border);padding:44px 20px 12px;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.05);}
+.topbar-row{display:flex;justify-content:space-between;align-items:center;}
+.brand-logo{display:flex;align-items:center;gap:10px;}
+.brand-icon{width:34px;height:34px;border-radius:50%;background:var(--gold-bg);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.brand-text{}
+.brand-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--gold);letter-spacing:.05em;line-height:1.1;}
+.brand-sub{font-size:10px;color:var(--text3);margin-top:2px;letter-spacing:.1em;text-transform:uppercase;}
+.date-chip{background:var(--gold-bg);border:1px solid var(--border2);border-radius:20px;padding:6px 14px;font-size:11px;color:var(--gold);letter-spacing:.04em;white-space:nowrap;}
+.topbar-divider{display:none;}
+.tabs{display:flex;background:var(--white);border-bottom:1px solid var(--border);}
+.tab{flex:1;padding:12px 0;text-align:center;font-size:12px;letter-spacing:.06em;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;}
+.tab.active{color:var(--gold);border-bottom-color:var(--gold);font-weight:500;}
+
+/* HOME SCREEN */
+.home-screen{position:fixed;inset:0;z-index:300;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;max-width:430px;margin:0 auto;}
+.home-logo{text-align:center;margin-bottom:48px;}
+.home-logo-icon{width:72px;height:72px;border-radius:50%;background:var(--white);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;box-shadow:0 4px 20px rgba(184,146,42,.15);}
+.home-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--gold);letter-spacing:.05em;}
+.home-sub{font-size:12px;color:var(--text3);margin-top:4px;letter-spacing:.12em;text-transform:uppercase;}
+.home-divider{width:48px;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold2),transparent);margin:20px auto 0;}
+.home-label{font-size:13px;color:var(--text3);margin-bottom:20px;text-align:center;letter-spacing:.04em;}
+.home-cards{display:flex;flex-direction:column;gap:14px;width:100%;}
+.home-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:20px 18px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:16px;box-shadow:0 2px 10px rgba(0,0,0,.04);}
+.home-card:hover,.home-card:active{border-color:var(--gold2);box-shadow:0 4px 20px rgba(184,146,42,.15);transform:translateY(-1px);}
+.home-card-img{width:56px;height:56px;border-radius:12px;background:var(--bg);border:1px solid var(--border);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;}
+.home-card-img img{width:100%;height:100%;object-fit:cover;}
+.home-card-body{flex:1;}
+.home-card-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--text);line-height:1.2;}
+.home-card-meta{font-size:11px;color:var(--text3);margin-top:4px;}
+.home-card-arrow{font-size:18px;color:var(--gold);opacity:.6;}
+.home-back{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text3);cursor:pointer;padding:6px 0;margin-bottom:2px;}
+.home-back:hover{color:var(--gold);}
+.prop-name-topbar{font-size:12px;color:var(--text2);margin-top:1px;font-weight:400;}
+
+.view{display:none;padding:14px 14px 100px;}
+.view.active{display:block;}
+
+.prop-tabs{display:flex;gap:8px;margin-bottom:14px;}
+.prop-tab{flex:1;padding:9px 10px;border-radius:20px;font-size:12px;text-align:center;cursor:pointer;border:1px solid var(--border);color:var(--text3);background:var(--white);transition:all .2s;font-weight:400;}
+.prop-tab.active{background:var(--gold);color:white;border-color:var(--gold);font-weight:500;}
+
+.prop-header{background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;margin-bottom:14px;box-shadow:0 1px 6px rgba(0,0,0,.04);}
+.prop-img-wrap{width:100%;height:130px;background:var(--bg);position:relative;cursor:pointer;overflow:hidden;}
+.prop-img-wrap img{width:100%;height:100%;object-fit:cover;display:block;}
+.prop-img-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:var(--text3);}
+.prop-img-placeholder .pi-icon{font-size:28px;opacity:.35;}
+.prop-img-placeholder .pi-text{font-size:12px;}
+.prop-img-overlay{position:absolute;inset:0;background:rgba(0,0,0,0);display:flex;align-items:center;justify-content:center;opacity:0;transition:.2s;}
+.prop-img-wrap:hover .prop-img-overlay{background:rgba(0,0,0,.28);opacity:1;}
+.prop-img-overlay span{color:white;font-size:12px;background:rgba(0,0,0,.45);padding:5px 14px;border-radius:20px;}
+.prop-img-input{display:none;}
+.prop-info{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;}
+.prop-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--text);}
+.prop-stats{display:flex;gap:14px;}
+.ps{text-align:center;}
+.ps-num{font-family:'Cormorant Garamond',serif;font-size:22px;}
+.ps-lbl{font-size:9px;color:var(--text3);letter-spacing:.05em;}
+
+.cal-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:18px 16px 14px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
+.cal-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--text);letter-spacing:.02em;}
+.cal-title span{color:var(--gold);}
+.cal-nav{display:flex;gap:8px;}
+.cal-btn{width:36px;height:36px;border-radius:50%;background:var(--bg);border:1px solid var(--border);color:var(--gold);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
+.cal-btn:active{transform:scale(.9);background:var(--gold-bg);}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.cal-dow{text-align:center;font-size:11px;font-weight:500;color:var(--text3);padding:4px 0 12px;letter-spacing:.04em;}
+.cal-day{
+  aspect-ratio:1;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  border-radius:10px;cursor:pointer;transition:.15s;gap:2px;position:relative;
+  border:1.5px solid transparent;
+}
+.cal-day:active{transform:scale(.88);}
+.cal-day.other{opacity:.25;}
+.cal-day.today{background:var(--gold-bg);border-color:var(--gold2);}
+.cal-day.booked{background:rgba(46,125,82,.08);border-color:rgba(46,125,82,.25);}
+.cal-day.pending-day{background:rgba(184,106,16,.08);border-color:rgba(184,106,16,.22);}
+.cal-day.selected{background:var(--gold)!important;border-color:var(--gold)!important;}
+.cal-day-num{font-size:14px;font-weight:500;line-height:1;color:var(--text);}
+.cal-day.today .cal-day-num{color:var(--gold);font-weight:700;}
+.cal-day.selected .cal-day-num{color:white;}
+.cal-day.other .cal-day-num{color:var(--text3);}
+.cal-day-tag{font-size:10px;line-height:1;}
+.cal-day.selected .cal-day-tag{filter:brightness(10);}
+.cal-legend{display:flex;gap:0;margin-top:16px;padding-top:12px;border-top:1px solid var(--border);justify-content:space-around;}
+.leg{display:flex;align-items:center;gap:5px;font-size:11px;color:var(--text3);}
+.leg-dot{width:8px;height:8px;border-radius:50%;}
+
+.day-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:14px;box-shadow:0 1px 6px rgba(0,0,0,.04);}
+.day-head{font-size:12px;color:var(--text3);margin-bottom:10px;}
+
+.filter-row{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none;}
+.filter-row::-webkit-scrollbar{display:none;}
+.fchip{flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:11px;border:1px solid var(--border);color:var(--text3);cursor:pointer;background:var(--white);transition:.2s;}
+.fchip.active{background:var(--gold);color:white;border-color:var(--gold);}
+
+.bcard{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:13px;margin-bottom:10px;cursor:pointer;transition:.2s;box-shadow:0 1px 4px rgba(0,0,0,.04);}
+.bcard:active{transform:scale(.99);}
+.bcard:hover{border-color:var(--gold2);}
+.bcard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
+.bcard-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--text);}
+.bcard-phone{font-size:11px;color:var(--text3);margin-top:1px;}
+.sbadge{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:500;white-space:nowrap;}
+.s-confirmed{background:var(--green-bg);color:var(--green);}
+.s-pending{background:var(--orange-bg);color:var(--orange);}
+.s-cancelled{background:var(--red-bg);color:var(--red);}
+.bcard-dates{font-size:12px;color:var(--text2);margin-bottom:8px;}
+.bcard-div{height:1px;background:var(--border);margin:7px 0;}
+.bcard-foot{display:flex;justify-content:space-between;align-items:center;}
+.bcard-meta{font-size:11px;color:var(--text3);}
+.bcard-price{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold);}
+
+.fab{position:fixed;bottom:78px;right:18px;width:50px;height:50px;border-radius:50%;background:var(--gold);color:white;font-size:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 18px rgba(184,146,42,.45);z-index:200;border:none;transition:.2s;}
+.fab:active{transform:scale(.93);}
+
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:430px;background:var(--white);border-top:1px solid var(--border);display:flex;padding:8px 0 18px;}
+.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;}
+.nav-icon{font-size:20px;}
+.nav-lbl{font-size:10px;color:var(--text3);}
+.nav-item.active .nav-lbl{color:var(--gold);}
+
+.overlay{display:none;position:fixed;inset:0;z-index:500;background:rgba(26,20,16,.45);align-items:flex-end;justify-content:center;}
+.overlay.open{display:flex;}
+.modal{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-width:430px;padding:18px 18px 36px;animation:up .3s cubic-bezier(.32,.72,0,1);max-height:92vh;overflow-y:auto;}
+@keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.handle{width:34px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 16px;}
+.mtitle{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.mclose{width:26px;height:26px;border-radius:50%;background:var(--bg);border:1px solid var(--border);color:var(--text3);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.fg{margin-bottom:12px;}
+.flabel{font-size:11px;color:var(--text3);margin-bottom:5px;display:block;}
+.finput,.fselect{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:14px;outline:none;transition:.2s;}
+.finput:focus,.fselect:focus{border-color:var(--gold2);background:white;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.btn-p{width:100%;padding:13px;border-radius:10px;background:var(--gold);color:white;font-family:'Sarabun',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:none;margin-top:6px;letter-spacing:.05em;}
+.btn-d{width:100%;padding:11px;border-radius:10px;background:transparent;border:1px solid rgba(170,40,40,.25);color:var(--red);font-family:'Sarabun',sans-serif;font-size:13px;cursor:pointer;margin-top:8px;}
+.dgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px;}
+.ditem{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;}
+.dkey{font-size:10px;color:var(--text3);margin-bottom:2px;}
+.dval{font-size:13px;color:var(--text);}
+.srow{display:flex;gap:6px;margin-bottom:14px;}
+.sbtn{flex:1;padding:8px 5px;border-radius:8px;font-size:11px;cursor:pointer;border:1px solid var(--border);background:var(--bg);color:var(--text3);transition:.2s;text-align:center;}
+.sbtn.confirmed.on,.sbtn.confirmed:hover{background:var(--green-bg);color:var(--green);border-color:var(--green);}
+.sbtn.pending.on,.sbtn.pending:hover{background:var(--orange-bg);color:var(--orange);border-color:var(--orange);}
+.sbtn.cancelled.on,.sbtn.cancelled:hover{background:var(--red-bg);color:var(--red);border-color:var(--red);}
+.empty{text-align:center;padding:36px 20px;color:var(--text3);}
+.empty-icon{font-size:32px;opacity:.3;margin-bottom:8px;}
+.empty-text{font-size:13px;}
+.slip-upload{width:100%;border:1.5px dashed var(--border2);border-radius:10px;padding:14px;text-align:center;cursor:pointer;background:var(--gold-bg);transition:.2s;position:relative;}
+.slip-upload:hover{border-color:var(--gold2);background:rgba(184,146,42,0.13);}
+.slip-upload input{display:none;}
+.slip-icon{font-size:22px;margin-bottom:4px;}
+.slip-text{font-size:12px;color:var(--text3);}
+.slip-text strong{color:var(--gold);}
+.slip-preview{width:100%;border-radius:10px;overflow:hidden;position:relative;border:1px solid var(--border);}
+.slip-preview img{width:100%;max-height:180px;object-fit:contain;display:block;background:var(--bg);}
+.slip-remove{position:absolute;top:6px;right:6px;width:24px;height:24px;border-radius:50%;background:rgba(170,40,40,.85);color:white;border:none;font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.slip-thumb{width:48px;height:48px;border-radius:8px;object-fit:cover;border:1px solid var(--border);cursor:pointer;}
+.paid-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(46,125,82,0.12);color:var(--green);border:1px solid rgba(46,125,82,.25);border-radius:20px;padding:3px 10px;font-size:11px;}
+.unpaid-badge{display:inline-flex;align-items:center;gap:4px;background:var(--orange-bg);color:var(--orange);border:1px solid rgba(184,106,16,.25);border-radius:20px;padding:3px 10px;font-size:11px;}
+.price-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed var(--border);}
+.price-row:last-child{border-bottom:none;padding-bottom:0;}
+.price-row-lbl{font-size:12px;color:var(--text3);}
+.price-row-val{font-family:'Cormorant Garamond',serif;font-size:16px;}
+.price-total-val{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);}
+/* slip viewer overlay */
+.slip-viewer{display:none;position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.85);align-items:center;justify-content:center;}
+.slip-viewer.open{display:flex;}
+.slip-viewer img{max-width:95%;max-height:90vh;border-radius:10px;object-fit:contain;}
+.slip-viewer-close{position:absolute;top:16px;right:16px;width:36px;height:36px;background:rgba(255,255,255,.15);border:none;color:white;font-size:20px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.confirm-overlay{display:none;position:fixed;inset:0;z-index:999;background:rgba(0,0,0,.5);align-items:center;justify-content:center;padding:24px;}
+.confirm-overlay.open{display:flex;}
+.confirm-box{background:var(--white);border-radius:16px;padding:24px 20px;width:100%;max-width:320px;text-align:center;}
+.confirm-icon{font-size:32px;margin-bottom:10px;}
+.confirm-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;margin-bottom:6px;}
+.confirm-msg{font-size:13px;color:var(--text3);margin-bottom:20px;line-height:1.5;}
+.confirm-btns{display:flex;gap:10px;}
+.confirm-cancel{flex:1;padding:12px;border-radius:10px;background:var(--bg);border:1px solid var(--border);color:var(--text2);font-family:'Sarabun',sans-serif;font-size:13px;cursor:pointer;}
+.confirm-ok{flex:1;padding:12px;border-radius:10px;background:var(--red);border:none;color:white;font-family:'Sarabun',sans-serif;font-size:13px;cursor:pointer;font-weight:500;}
+/* EXTRAS */
+.extras-section{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px;}
+.extras-title{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
+.extra-row{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+.extra-row:last-child{margin-bottom:0;}
+.extra-check{width:18px;height:18px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
+.extra-label{flex:1;font-size:13px;color:var(--text);}
+.extra-label small{display:block;font-size:10px;color:var(--text3);}
+.extra-qty{width:60px;padding:6px 8px;border:1px solid var(--border);border-radius:7px;background:var(--white);font-size:13px;text-align:center;outline:none;font-family:'Sarabun',sans-serif;}
+.extra-qty:focus{border-color:var(--gold2);}
+.extra-amount{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--gold);min-width:64px;text-align:right;}
+.summary-box{background:var(--white);border:1.5px solid var(--border2);border-radius:12px;padding:14px;margin-bottom:12px;}
+.sum-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed var(--border);}
+.sum-row:last-child{border-bottom:none;padding-bottom:0;}
+.sum-lbl{font-size:12px;color:var(--text3);}
+.sum-val{font-size:14px;color:var(--text);}
+.sum-total-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0 0;}
+.sum-total-lbl{font-size:13px;font-weight:500;color:var(--text);}
+.sum-total-val{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);}
+.sum-remain-row{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:rgba(184,146,42,.06);border-radius:8px;margin-top:8px;border:1px solid var(--border2);}
+.sum-remain-lbl{font-size:12px;color:var(--text2);}
+.sum-remain-val{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--green);font-weight:600;}
+.disc-btn{flex:1;padding:8px 4px;border-radius:8px;background:var(--bg);border:1.5px solid var(--border);color:var(--text2);font-family:'Sarabun',sans-serif;font-size:13px;cursor:pointer;transition:all .15s;}
+.disc-btn.active{background:var(--gold-bg);border-color:var(--gold2);color:var(--gold);font-weight:600;}
+.sum-row.discount{color:var(--green);}
+
+/* ===== LOGIN ===== */
+.login-screen{position:fixed;inset:0;z-index:500;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 28px;max-width:430px;margin:0 auto;}
+.login-logo{text-align:center;margin-bottom:36px;}
+.login-logo-icon{width:72px;height:72px;border-radius:50%;background:var(--white);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px;box-shadow:0 4px 20px rgba(184,146,42,.15);}
+.login-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--gold);}
+.login-sub{font-size:11px;color:var(--text3);margin-top:4px;letter-spacing:.1em;text-transform:uppercase;}
+.login-field{margin-bottom:14px;}
+.login-label{font-size:12px;color:var(--text3);margin-bottom:5px;display:block;letter-spacing:.04em;}
+.login-input{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:12px;background:var(--white);font-family:'Sarabun',sans-serif;font-size:14px;outline:none;transition:border .2s;-webkit-appearance:none;}
+.login-input:focus{border-color:var(--gold2);}
+.login-btn{width:100%;padding:15px;border-radius:12px;background:var(--gold);border:none;color:white;font-family:'Sarabun',sans-serif;font-size:15px;font-weight:500;cursor:pointer;margin-top:6px;letter-spacing:.04em;}
+.login-error{font-size:12px;color:var(--red);text-align:center;margin-top:10px;min-height:18px;}
+/* ===== NOTIFY ===== */
+.notif-box{background:var(--white);border:1.5px solid var(--border2);border-radius:14px;padding:12px 14px;margin-bottom:10px;}
+.notif-header{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
+.notif-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.notif-title{font-size:12px;font-weight:500;color:var(--text2);flex:1;}
+.notif-count{background:var(--gold-bg);border:1px solid var(--border2);border-radius:10px;padding:1px 8px;font-size:11px;color:var(--gold);}
+.notif-item{font-size:12px;color:var(--text);background:var(--bg);border-radius:8px;padding:7px 10px;margin-bottom:5px;cursor:pointer;}
+.notif-item:last-child{margin-bottom:0;}
+/* ===== SEARCH ===== */
+.search-bar{display:flex;align-items:center;gap:8px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:0 12px;margin-bottom:12px;}
+.search-bar input{flex:1;padding:11px 0;border:none;outline:none;font-family:'Sarabun',sans-serif;font-size:13px;background:transparent;}
+.search-icon{font-size:15px;color:var(--text3);}
+/* ===== REVENUE ===== */
+.rev-month-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.rev-month-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--text);}
+.rev-nav-btn{width:34px;height:34px;border-radius:50%;background:var(--white);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;color:var(--text2);}
+.rev-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+.rev-card{background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:14px;}
+.rev-card.full{grid-column:1/-1;}
+.rev-card-lbl{font-size:11px;color:var(--text3);margin-bottom:4px;}
+.rev-card-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;}
+.rev-prop-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--border);}
+.rev-prop-row:last-child{border:none;padding-bottom:0;}
+.rev-prop-name{font-size:12px;color:var(--text2);}
+.rev-prop-val{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--gold);}
+.rev-list-item{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;background:var(--bg);border-radius:8px;margin-bottom:6px;cursor:pointer;}
+.rev-list-left{flex:1;}
+.rev-list-name{font-size:12px;color:var(--text);font-weight:500;}
+.rev-list-meta{font-size:11px;color:var(--text3);margin-top:1px;}
+.rev-list-price{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold);}
+/* ===== DEPOSIT QUICK TOGGLE ===== */
+.dep-toggle{display:flex;gap:6px;margin-top:10px;}
+.dep-toggle-btn{flex:1;padding:9px;border-radius:9px;font-family:'Sarabun',sans-serif;font-size:12px;cursor:pointer;border:1.5px solid var(--border);background:var(--bg);color:var(--text2);transition:all .15s;font-weight:500;}
+.dep-toggle-btn.active-paid{border-color:var(--green);background:var(--green-bg);color:var(--green);}
+.dep-toggle-btn.active-unpaid{border-color:var(--orange);background:var(--orange-bg);color:var(--orange);}
+</style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-logo">
+    <div class="login-logo-icon">🏊</div>
+    <div class="login-title">Villa Reserve</div>
+    <div class="login-sub">Pool Villa Management</div>
+  </div>
+  <div class="login-field" style="width:100%">
+    <label class="login-label">USERNAME</label>
+    <input class="login-input" id="li-user" type="text" placeholder="กรอก Username" autocomplete="username">
+  </div>
+  <div class="login-field" style="width:100%">
+    <label class="login-label">PASSWORD</label>
+    <input class="login-input" id="li-pass" type="password" placeholder="กรอก Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+  </div>
+  <button class="login-btn" onclick="doLogin()">เข้าสู่ระบบ</button>
+  <div class="login-error" id="login-err"></div>
+</div>
+
+<!-- HOME SCREEN -->
+<div class="home-screen" id="homeScreen">
+  <div class="home-logo">
+    <div class="home-logo-icon">🏊</div>
+    <div class="home-title">Villa Reserve</div>
+    <div class="home-sub">Pool Villa Management</div>
+    <div class="home-divider"></div>
+  </div>
+  <div class="home-label">เลือกที่พักที่ต้องการจัดการ</div>
+  <div class="home-cards">
+    <div class="home-card" onclick="enterProp(0)">
+      <div class="home-card-img" id="homeImg0"><span>🏊</span></div>
+      <div class="home-card-body">
+        <div class="home-card-name">ปณิตาพูลวิลล่า</div>
+        <div class="home-card-meta" id="homeMeta0">กำลังโหลด...</div>
+      </div>
+      <div class="home-card-arrow">›</div>
+    </div>
+    <div class="home-card" onclick="enterProp(1)">
+      <div class="home-card-img" id="homeImg1"><span>🌿</span></div>
+      <div class="home-card-body">
+        <div class="home-card-name">พูลวิลล่าบ้านสวนกิ๊บ</div>
+        <div class="home-card-meta" id="homeMeta1">กำลังโหลด...</div>
+      </div>
+      <div class="home-card-arrow">›</div>
+    </div>
+  </div>
+
+  <!-- DATA BACKUP ROW -->
+  <div style="display:flex;gap:10px;margin-top:20px;width:100%;">
+    <button onclick="exportData()" style="flex:1;background:var(--white);border:1.5px solid var(--border2);border-radius:12px;padding:13px;font-family:'Sarabun',sans-serif;font-size:13px;color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;font-weight:500;box-shadow:0 1px 6px rgba(0,0,0,.06);">📤 Export ข้อมูล</button>
+    <label style="flex:1;background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:13px;font-family:'Sarabun',sans-serif;font-size:13px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;font-weight:500;box-shadow:0 1px 6px rgba(0,0,0,.06);">📥 Import ข้อมูล<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
+  </div>
+  <div style="font-size:10px;color:var(--text3);margin-top:8px;text-align:center;letter-spacing:.03em;">Export ก่อนอัปเดทเพื่อป้องกันข้อมูลหาย</div>
+</div>
+
+<div class="topbar">
+  <div class="topbar-row">
+    <div class="brand-logo">
+      <div class="home-back" onclick="goHome()" id="backBtn" style="display:none">‹ กลับ</div>
+      <div id="topbarBrand">
+        <div class="brand-icon">🏊</div>
+      </div>
+      <div class="brand-text">
+        <div class="brand-name">Villa Reserve</div>
+        <div class="prop-name-topbar" id="propNameTopbar" style="display:none"></div>
+        <div class="brand-sub" id="brandSubText">Pool Villa Management</div>
+      </div>
+    </div>
+    <div class="date-chip" id="todayChip"></div>
+  </div>
+</div>
+
+
+
+<!-- CALENDAR VIEW -->
+<div class="view active" id="view-calendar">
+  <div class="prop-tabs">
+    <div class="prop-tab active" id="ptab-0" onclick="selProp(0)">ปณิตาพูลวิลล่า</div>
+    <div class="prop-tab" id="ptab-1" onclick="selProp(1)">บ้านสวนกิ๊บ</div>
+  </div>
+
+  <!-- Property header with photo -->
+  <div class="prop-header">
+    <div class="prop-img-wrap" onclick="trigImg()">
+      <img id="propImg" src="" style="display:none">
+      <div class="prop-img-placeholder" id="propPh">
+        <div class="pi-icon">🏊</div>
+        <div class="pi-text">แตะเพื่อเพิ่มรูปที่พัก</div>
+      </div>
+      <div class="prop-img-overlay"><span>📷 เปลี่ยนรูป</span></div>
+      <input type="file" class="prop-img-input" id="propImgInput" accept="image/*" onchange="handleImg(event)">
+    </div>
+    <div class="prop-info">
+      <div><div class="prop-title" id="propTitle">ปณิตาพูลวิลล่า</div></div>
+      <div class="prop-stats">
+        <div class="ps"><div class="ps-num" style="color:var(--green)" id="psCon">0</div><div class="ps-lbl">ยืนยัน</div></div>
+        <div class="ps"><div class="ps-num" style="color:var(--orange)" id="psPen">0</div><div class="ps-lbl">รอดำเนิน</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="todayNotif"></div>
+  <div class="cal-card">
+    <div class="cal-head">
+      <div class="cal-title" id="calTitle"></div>
+      <div class="cal-nav">
+        <button class="cal-btn" onclick="chgMonth(-1)">‹</button>
+        <button class="cal-btn" onclick="chgMonth(1)">›</button>
+      </div>
+    </div>
+    <div class="cal-grid" id="calGrid"></div>
+    <div class="cal-legend">
+      <div class="leg"><div class="leg-dot" style="background:var(--green)"></div>จองแล้ว</div>
+      <div class="leg"><div class="leg-dot" style="background:var(--orange)"></div>รอดำเนิน</div>
+      <div class="leg"><div class="leg-dot" style="background:#C8BFB0"></div>ว่าง</div>
+    </div>
+  </div>
+  <div id="daySection"></div>
+</div>
+
+<!-- LIST VIEW -->
+<div class="view" id="view-list">
+  <div class="prop-tabs" style="margin-top:0">
+    <div class="prop-tab active" id="ltab-0" onclick="selPropL(0)">ปณิตาพูลวิลล่า</div>
+    <div class="prop-tab" id="ltab-1" onclick="selPropL(1)">บ้านสวนกิ๊บ</div>
+  </div>
+  <div class="search-bar">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" placeholder="ค้นหาชื่อ หรือเบอร์โทร..." oninput="renderList()">
+    <span class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none">✕</span>
+  </div>
+  <div class="filter-row">
+    <div class="fchip active" onclick="flt('all',this)">ทั้งหมด</div>
+    <div class="fchip" onclick="flt('confirmed',this)">ยืนยันแล้ว</div>
+    <div class="fchip" onclick="flt('pending',this)">รอดำเนิน</div>
+    <div class="fchip" onclick="flt('cancelled',this)">ยกเลิก</div>
+  </div>
+  <div id="bookingList"></div>
+</div>
+
+<!-- REVENUE VIEW -->
+<div class="view" id="view-revenue" style="padding:14px 14px 100px;">
+  <div class="rev-month-nav">
+    <button class="rev-nav-btn" onclick="chgRevMonth(-1)">‹</button>
+    <div class="rev-month-title" id="revMonthTitle"></div>
+    <button class="rev-nav-btn" onclick="chgRevMonth(1)">›</button>
+  </div>
+  <div id="revContent"></div>
+</div>
+
+<button class="fab" onclick="openAdd()">+</button>
+<div class="bottom-nav">
+  <div class="nav-item active" id="nav-calendar" onclick="switchTab('calendar')">
+    <div class="nav-icon">🗓</div><div class="nav-lbl">ปฏิทิน</div>
+  </div>
+  <div class="nav-item" id="nav-list" onclick="switchTab('list')">
+    <div class="nav-icon">📋</div><div class="nav-lbl">รายการ</div>
+  </div>
+  <div class="nav-item" id="nav-revenue" onclick="switchTab('revenue')">
+    <div class="nav-icon">💰</div><div class="nav-lbl">รายได้</div>
+  </div>
+  <div class="nav-item" onclick="doLogout()">
+    <div class="nav-icon">🚪</div><div class="nav-lbl">ออก</div>
+  </div>
+</div>
+
+<!-- ADD MODAL -->
+<div class="overlay" id="addOv">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="handle"></div>
+    <div class="mtitle"><span id="addMTitle">เพิ่มการจอง</span><button class="mclose" onclick="cls('addOv')">✕</button></div>
+    <div class="fg"><label class="flabel">ที่พัก</label>
+      <select class="fselect" id="f-prop"><option value="0">ปณิตาพูลวิลล่า</option><option value="1">พูลวิลล่าบ้านสวนกิ๊บ</option></select>
+    </div>
+    <div class="fg"><label class="flabel">ชื่อผู้จอง</label><input class="finput" id="f-name" placeholder="ชื่อ-นามสกุล" type="text"></div>
+    <div class="fg"><label class="flabel">เบอร์โทร</label><input class="finput" id="f-phone" placeholder="0xx-xxx-xxxx" type="tel"></div>
+    <div class="frow">
+      <div class="fg"><label class="flabel">เช็คอิน</label><input class="finput" id="f-in" type="date"></div>
+      <div class="fg"><label class="flabel">เช็คเอาท์</label><input class="finput" id="f-out" type="date"></div>
+    </div>
+    <div class="frow">
+      <div class="fg"><label class="flabel">จำนวนคน</label><input class="finput" id="f-guests" type="number" min="1" placeholder="2"></div>
+      <div class="fg"><label class="flabel">ราคา (บาท)</label><input class="finput" id="f-price" type="number" placeholder="5000" oninput="calcTotal()"></div>
+    </div>
+    <div class="fg">
+      <label class="flabel">ส่วนลด</label>
+      <div style="display:flex;gap:6px;margin-bottom:6px;">
+        <button type="button" class="disc-btn" id="disc-0" onclick="setDiscount(0)">ไม่มี</button>
+        <button type="button" class="disc-btn" id="disc-10" onclick="setDiscount(10)">10%</button>
+        <button type="button" class="disc-btn" id="disc-15" onclick="setDiscount(15)">15%</button>
+        <button type="button" class="disc-btn" id="disc-20" onclick="setDiscount(20)">20%</button>
+      </div>
+      <div id="discount-info" style="display:none;font-size:12px;color:var(--green);background:var(--green-bg);border:1px solid rgba(46,125,82,.15);border-radius:8px;padding:7px 10px;">
+        🏷️ ลด <span id="disc-pct-txt"></span> — ประหยัด <span id="disc-save-txt" style="font-weight:500;"></span>
+      </div>
+    </div>
+    <div class="fg"><label class="flabel">สถานะ</label>
+      <select class="fselect" id="f-status"><option value="pending">⏳ รอดำเนิน</option><option value="confirmed">✅ ยืนยัน</option><option value="cancelled">✕ ยกเลิก</option></select>
+    </div>
+    <div class="fg">
+      <label class="flabel">เงินมัดจำ (จ่ายก่อนเข้าพัก)</label>
+      <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
+        <button type="button" onclick="setDeposit50()" style="flex:1;padding:9px;border-radius:8px;background:var(--gold-bg);border:1.5px solid var(--border2);color:var(--gold);font-family:'Sarabun',sans-serif;font-size:12px;font-weight:500;cursor:pointer;">⚡ คิด 50% อัตโนมัติ</button>
+        <input class="finput" id="f-deposit" type="number" placeholder="หรือกรอกเอง" oninput="calcTotal()" style="flex:1.2">
+      </div>
+      <select class="fselect" id="f-deposit-status" onchange="calcTotal()"><option value="unpaid">⏳ ยังไม่ได้รับมัดจำ</option><option value="paid">✅ รับมัดจำแล้ว</option></select>
+    </div>
+    <div class="fg">
+      <label class="flabel">สลิปโอนเงิน (ถ้ามี)</label>
+      <div id="slip-upload-area" class="slip-upload" onclick="event.stopPropagation();document.getElementById('f-slip').click()">
+        <input type="file" id="f-slip" accept="image/*" onchange="handleSlip(event)">
+        <div id="slip-placeholder"><div class="slip-icon">🧾</div><div class="slip-text">แตะเพื่อแนบสลิป<br><strong>รองรับรูปภาพทุกประเภท</strong></div></div>
+        <div id="slip-preview-wrap" style="display:none"></div>
+      </div>
+    </div>
+    <div class="fg"><label class="flabel">หมายเหตุ</label><input class="finput" id="f-note" placeholder="(ถ้ามี)" type="text"></div>
+
+    <!-- EXTRA CHARGES -->
+    <div class="extras-section">
+      <div class="extras-title">💳 ค่าใช้จ่ายเพิ่มเติม</div>
+
+      <div class="extra-row">
+        <input type="checkbox" class="extra-check" id="ex-insurance" onchange="calcTotal()">
+        <div class="extra-label">ค่าประกันบ้าน<small>คืนหลังเช็คเอาท์ (ไม่มีความเสียหาย)</small></div>
+        <span class="extra-amount" id="amt-insurance">฿5,000</span>
+      </div>
+
+      <div class="extra-row">
+        <input type="checkbox" class="extra-check" id="ex-buffet" onchange="calcTotal()">
+        <div class="extra-label">ค่าอาหารบุฟเฟ่</div>
+        <input type="number" class="extra-qty" id="qty-buffet" placeholder="0" min="0" oninput="calcTotal()" onclick="event.stopPropagation()">
+        <span class="extra-amount" id="amt-buffet">฿0</span>
+      </div>
+
+      <div class="extra-row">
+        <input type="checkbox" class="extra-check" id="ex-music" onchange="calcTotal()">
+        <div class="extra-label">ค่าดนตรี</div>
+        <input type="number" class="extra-qty" id="qty-music" placeholder="0" min="0" oninput="calcTotal()" onclick="event.stopPropagation()">
+        <span class="extra-amount" id="amt-music">฿0</span>
+      </div>
+
+      <div class="extra-row">
+        <input type="checkbox" class="extra-check" id="ex-jetski" onchange="calcTotal()">
+        <div class="extra-label">ค่าเจ็ทสกี<small>฿2,500 / ชม.</small></div>
+        <input type="number" class="extra-qty" id="qty-jetski" placeholder="ชม." min="0" step="0.5" oninput="calcTotal()" onclick="event.stopPropagation()">
+        <span class="extra-amount" id="amt-jetski">฿0</span>
+      </div>
+
+      <div class="extra-row">
+        <input type="checkbox" class="extra-check" id="ex-banana" onchange="calcTotal()">
+        <div class="extra-label">ค่าบานาน่าโบ๊ท<small>฿3,600 / ชม.</small></div>
+        <input type="number" class="extra-qty" id="qty-banana" placeholder="ชม." min="0" step="0.5" oninput="calcTotal()" onclick="event.stopPropagation()">
+        <span class="extra-amount" id="amt-banana">฿0</span>
+      </div>
+
+      <div class="extra-row">
+        <input type="checkbox" class="extra-check" id="ex-combo" onchange="calcTotal()">
+        <div class="extra-label">เจ็ทสกี + บานาน่าโบ๊ท<small>฿2,500 / ชม. (แพ็กเกจรวม)</small></div>
+        <input type="number" class="extra-qty" id="qty-combo" placeholder="ชม." min="0" step="0.5" oninput="calcTotal()" onclick="event.stopPropagation()">
+        <span class="extra-amount" id="amt-combo">฿0</span>
+      </div>
+
+      <div class="extra-row">
+        <input type="checkbox" class="extra-check" id="ex-mookata" onchange="calcTotal()">
+        <div class="extra-label">Set หมูกระทะ<small>฿1,990 / Set</small></div>
+        <input type="number" class="extra-qty" id="qty-mookata" placeholder="Set" min="0" oninput="calcTotal()" onclick="event.stopPropagation()">
+        <span class="extra-amount" id="amt-mookata">฿0</span>
+      </div>
+    </div>
+
+    <!-- LIVE SUMMARY -->
+    <div class="summary-box">
+      <div class="sum-row"><span class="sum-lbl">ราคาที่พัก</span><span class="sum-val" id="sum-base">฿0</span></div>
+      <div class="sum-row" id="sum-discount-row" style="display:none"><span class="sum-lbl" style="color:var(--green)">🏷️ ส่วนลด (<span id="sum-disc-pct">0</span>%)</span><span class="sum-val" style="color:var(--green)" id="sum-disc-amt">-฿0</span></div>
+      <div class="sum-row" id="sum-extras-row" style="display:none"><span class="sum-lbl">ค่าใช้จ่ายเพิ่มเติม</span><span class="sum-val" id="sum-extras">฿0</span></div>
+      <div class="sum-row" id="sum-insurance-row" style="display:none"><span class="sum-lbl">ค่าประกันบ้าน</span><span class="sum-val">฿5,000</span></div>
+      <div class="sum-total-row"><span class="sum-total-lbl">ยอดรวมทั้งหมด</span><span class="sum-total-val" id="sum-total">฿0</span></div>
+      <!-- deposit split -->
+      <div id="sum-split-block" style="display:none;margin-top:10px;border-top:1px dashed var(--border);padding-top:10px;">
+        <div style="font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);margin-bottom:8px;">แบ่งจ่าย 2 งวด</div>
+        <div style="display:flex;gap:8px;">
+          <div style="flex:1;background:var(--orange-bg);border:1px solid rgba(184,106,16,.2);border-radius:10px;padding:10px 12px;text-align:center;">
+            <div style="font-size:10px;color:var(--orange);margin-bottom:3px;">💳 มัดจำก่อนเข้าพัก</div>
+            <div id="sum-deposit-amt" style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--orange);">฿0</div>
+            <div id="sum-deposit-status-txt" style="font-size:9px;color:var(--text3);margin-top:2px;">ยังไม่ได้รับ</div>
+          </div>
+          <div style="flex:1;background:var(--green-bg);border:1px solid rgba(46,125,82,.2);border-radius:10px;padding:10px 12px;text-align:center;">
+            <div style="font-size:10px;color:var(--green);margin-bottom:3px;">🏠 คงเหลือหลังเข้าพัก</div>
+            <div id="sum-remain-amt" style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--green);">฿0</div>
+            <div style="font-size:9px;color:var(--text3);margin-top:2px;">ชำระวันเช็คเอาท์</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-p" onclick="save()">บันทึกการจอง</button>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="overlay" id="detOv">
+  <div class="modal" onclick="event.stopPropagation()"><div class="handle"></div><div id="detBody"></div></div>
+</div>
+
+<!-- SLIP VIEWER -->
+<div class="slip-viewer" id="slipViewer" onclick="document.getElementById('slipViewer').classList.remove('open')">
+  <button class="slip-viewer-close">✕</button>
+  <img id="slipViewerImg" src="">
+</div>
+
+<!-- CONFIRM DIALOG -->
+<div class="confirm-overlay" id="confirmOv">
+  <div class="confirm-box">
+    <div class="confirm-icon" id="confirmIcon">🗑️</div>
+    <div class="confirm-title" id="confirmTitle">ลบการจอง?</div>
+    <div class="confirm-msg" id="confirmMsg">การจองนี้จะถูกลบออกถาวร<br>ไม่สามารถกู้คืนได้</div>
+    <div class="confirm-btns">
+      <button class="confirm-cancel" onclick="document.getElementById('confirmOv').classList.remove('open')">ยกเลิก</button>
+      <button class="confirm-ok" id="confirmOkBtn">ยืนยัน</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===== AUTH ===== */
+const AUTH={user:'amonrat789',pass:'252825'};
+function doLogin(){
+  const u=document.getElementById('li-user').value.trim();
+  const p=document.getElementById('li-pass').value;
+  if(u===AUTH.user&&p===AUTH.pass){
+    document.getElementById('loginScreen').style.display='none';
+    document.getElementById('li-pass').value='';
+    document.getElementById('login-err').textContent='';
+    sessionStorage.setItem('vr_auth','1');
+  } else {
+    document.getElementById('login-err').textContent='Username หรือ Password ไม่ถูกต้อง';
+    document.getElementById('li-pass').value='';
+    document.getElementById('li-pass').focus();
+  }
+}
+function doLogout(){
+  document.getElementById('confirmIcon').textContent='🚪';
+  document.getElementById('confirmTitle').textContent='ออกจากระบบ?';
+  document.getElementById('confirmMsg').textContent='คุณต้องการออกจากระบบใช่ไหม?';
+  document.getElementById('confirmOv').classList.add('open');
+  document.getElementById('confirmOkBtn').onclick=function(){
+    document.getElementById('confirmOv').classList.remove('open');
+    sessionStorage.removeItem('vr_auth');
+    document.getElementById('loginScreen').style.display='flex';
+    document.getElementById('li-user').value='';
+    document.getElementById('li-pass').value='';
+    goHome();
+  };
+}
+// check session
+if(sessionStorage.getItem('vr_auth')==='1'){
+  document.getElementById('loginScreen').style.display='none';
+}
+
+const MONTHS=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+const DAYS=['อา','จ','อ','พ','พฤ','ศ','ส'];
+const PROPS=['ปณิตาพูลวิลล่า','พูลวิลล่าบ้านสวนกิ๊บ'];
+const pImgs=[null,null];
+let curP=0,curPL=0,viewM=new Date(),curF='all',eid=null;
+viewM.setDate(1);
+
+let bs=[
+  {id:1,prop:0,name:'คุณสมชาย ใจดี',phone:'081-234-5678',checkin:'2026-03-08',checkout:'2026-03-10',guests:4,price:12000,deposit:3000,depositStatus:'paid',slip:null,status:'confirmed',note:'ต้องการ BBQ set'},
+  {id:2,prop:0,name:'คุณวิภา รักสวย',phone:'089-876-5432',checkin:'2026-03-14',checkout:'2026-03-17',guests:2,price:9000,deposit:2000,depositStatus:'unpaid',slip:null,status:'pending',note:''},
+  {id:3,prop:1,name:'คุณธนกร มั่งมี',phone:'062-345-6789',checkin:'2026-03-11',checkout:'2026-03-14',guests:6,price:18000,deposit:5000,depositStatus:'paid',slip:null,status:'confirmed',note:'วันเกิด'},
+  {id:4,prop:1,name:'คุณนภา สดใส',phone:'095-111-2233',checkin:'2026-03-20',checkout:'2026-03-21',guests:2,price:5500,deposit:0,depositStatus:'unpaid',slip:null,status:'cancelled',note:''},
+];
+let nid=5;
+
+function p2(n){return String(n).padStart(2,'0');}
+function tstr(){const d=new Date();return`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;}
+function nts(a,b){return Math.max(0,Math.round((new Date(b)-new Date(a))/86400000));}
+function fmtTH(s){if(!s)return'-';const d=new Date(s+'T00:00:00');return`${d.getDate()} ${MONTHS[d.getMonth()].slice(0,3)} ${d.getFullYear()+543}`;}
+function slbl(s){return{confirmed:'ยืนยันแล้ว',pending:'รอดำเนิน',cancelled:'ยกเลิก'}[s]||s;}
+
+let pendingSlip=null;
+function handleSlip(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=ev=>{
+    pendingSlip=ev.target.result;
+    document.getElementById('slip-placeholder').style.display='none';
+    document.getElementById('slip-preview-wrap').style.display='block';
+    document.getElementById('slip-preview-wrap').innerHTML=`<div class="slip-preview"><img src="${pendingSlip}"><button class="slip-remove" onclick="removeSlip(event)">✕</button></div>`;
+  };
+  r.readAsDataURL(f);
+  e.target.value='';
+}
+function removeSlip(e){
+  e.stopPropagation();pendingSlip=null;
+  document.getElementById('slip-placeholder').style.display='block';
+  document.getElementById('slip-preview-wrap').style.display='none';
+  document.getElementById('slip-preview-wrap').innerHTML='';
+}
+function viewSlip(src){
+  document.getElementById('slipViewerImg').src=src;
+  document.getElementById('slipViewer').classList.add('open');
+}
+
+document.getElementById('todayChip').textContent=fmtTH(tstr());
+
+function selProp(i){
+  curP=i;[0,1].forEach(j=>document.getElementById('ptab-'+j).classList.toggle('active',j===i));
+  document.getElementById('propTitle').textContent=PROPS[i];
+  updImg();updStats();renderCal();document.getElementById('daySection').innerHTML='';
+}
+function selPropL(i){
+  curPL=i;[0,1].forEach(j=>document.getElementById('ltab-'+j).classList.toggle('active',j===i));
+  renderList();
+}
+function updImg(){
+  const img=document.getElementById('propImg'),ph=document.getElementById('propPh');
+  if(pImgs[curP]){img.src=pImgs[curP];img.style.display='block';ph.style.display='none';}
+  else{img.style.display='none';ph.style.display='flex';}
+}
+function trigImg(){document.getElementById('propImgInput').click();}
+function handleImg(e){
+  const f=e.target.files[0];if(!f)return;
+  const r=new FileReader();r.onload=ev=>{pImgs[curP]=ev.target.result;updImg();};r.readAsDataURL(f);
+  e.target.value='';
+}
+function updStats(){
+  const pb=bs.filter(b=>b.prop===curP);
+  document.getElementById('psCon').textContent=pb.filter(b=>b.status==='confirmed').length;
+  document.getElementById('psPen').textContent=pb.filter(b=>b.status==='pending').length;
+}
+
+function renderCal(){
+  const yr=viewM.getFullYear(),mo=viewM.getMonth();
+  document.getElementById('calTitle').innerHTML=`${MONTHS[mo]} <span>${yr+543}</span>`;
+  const first=new Date(yr,mo,1).getDay();
+  const tot=new Date(yr,mo+1,0).getDate();
+  const prev=new Date(yr,mo,0).getDate();
+  const td=tstr();
+  const pb=bs.filter(b=>b.prop===curP&&b.status!=='cancelled');
+  let h=DAYS.map(d=>`<div class="cal-dow">${d}</div>`).join('');
+  for(let i=first-1;i>=0;i--)h+=`<div class="cal-day other"><span class="cal-day-num">${prev-i}</span></div>`;
+  for(let d=1;d<=tot;d++){
+    const ds=`${yr}-${p2(mo+1)}-${p2(d)}`;
+    const db=pb.filter(b=>b.checkin<=ds&&b.checkout>ds);
+    let cls='cal-day',tag='';
+    if(ds===td)cls+=' today';
+    if(db.length>0){
+      const hc=db.some(b=>b.status==='confirmed'),hp=db.some(b=>b.status==='pending');
+      cls+=hc?' booked':' pending-day';
+      tag=hc?`<span class="cal-day-tag" style="color:var(--green);font-size:8px;font-weight:600;letter-spacing:.02em">จอง</span>`:`<span class="cal-day-tag" style="color:var(--orange);font-size:8px;font-weight:600;letter-spacing:.02em">รอ</span>`;
+    } else {
+      tag=`<span class="cal-day-tag" style="color:#C8BFB0;font-size:8px;">ว่าง</span>`;
+    }
+    h+=`<div class="${cls}" onclick="selDay('${ds}',this)"><span class="cal-day-num">${d}</span>${tag}</div>`;
+  }
+  const used=first+tot,rem=Math.ceil(used/7)*7-used;
+  for(let i=1;i<=rem;i++)h+=`<div class="cal-day other"><span class="cal-day-num">${i}</span></div>`;
+  document.getElementById('calGrid').innerHTML=h;
+}
+
+function selDay(ds,el){
+  document.querySelectorAll('.cal-day').forEach(x=>x.classList.remove('selected'));
+  el.classList.add('selected');
+  const db=bs.filter(b=>b.prop===curP&&b.checkin<=ds&&b.checkout>ds);
+  const sec=document.getElementById('daySection');
+  if(db.length===0){
+    sec.innerHTML=`<div class="day-box"><div class="day-head">📅 ${fmtTH(ds)}</div><div class="empty"><div class="empty-icon">✨</div><div class="empty-text">ว่าง — ไม่มีการจองวันนี้</div></div></div>`;
+  }else{
+    sec.innerHTML=`<div class="day-box"><div class="day-head">📅 ${fmtTH(ds)} · ${db.length} การจอง</div>${db.map(b=>cardH(b)).join('')}</div>`;
+  }
+}
+
+function chgMonth(d){viewM.setMonth(viewM.getMonth()+d);renderCal();document.getElementById('daySection').innerHTML='';}
+
+function renderList(){
+  const q=(document.getElementById('searchInput').value||'').toLowerCase().trim();
+  document.getElementById('searchClear').style.display=q?'block':'none';
+  let pb=bs.filter(b=>b.prop===curPL&&(curF==='all'||b.status===curF));
+  if(q)pb=pb.filter(b=>(b.name||'').toLowerCase().includes(q)||(b.phone||'').includes(q));
+  const c=document.getElementById('bookingList');
+  if(pb.length===0){
+    c.innerHTML=`<div class="empty"><div class="empty-icon">${q?'🔍':'📭'}</div><div class="empty-text">${q?'ไม่พบ "'+q+'"':'ไม่มีรายการ'}</div></div>`;return;
+  }
+  c.innerHTML=pb.map(b=>cardH(b)).join('');
+}
+function clearSearch(){document.getElementById('searchInput').value='';renderList();}
+function flt(f,el){curF=f;document.querySelectorAll('.fchip').forEach(x=>x.classList.remove('active'));el.classList.add('active');renderList();}
+
+function cardH(b){
+  const n=nts(b.checkin,b.checkout);
+  return`<div class="bcard" onclick="openDet(${b.id})">
+    <div class="bcard-top"><div><div class="bcard-name">${b.name}</div><div class="bcard-phone">${b.phone||''}</div></div><span class="sbadge s-${b.status}">${slbl(b.status)}</span></div>
+    <div class="bcard-dates">📅 ${fmtTH(b.checkin)} → ${fmtTH(b.checkout)}</div>
+    <div class="bcard-div"></div>
+    <div class="bcard-foot"><div class="bcard-meta">🌙${n}คืน &nbsp;👥${b.guests}คน</div><div class="bcard-price">฿${Number(b.price).toLocaleString()}</div></div>
+  </div>`;
+}
+
+function switchTab(t){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
+  document.getElementById('view-'+t).classList.add('active');
+  const ti={'calendar':0,'list':1,'revenue':2};
+  
+  const ni=document.getElementById('nav-'+t);if(ni)ni.classList.add('active');
+  if(t==='list')renderList();
+  if(t==='revenue')renderRevenue();
+}
+
+function setDeposit50(){
+  const total=calcGetTotal();
+  document.getElementById('f-deposit').value=Math.ceil(total*0.5);
+  calcTotal();
+}
+function calcGetTotal(){
+  const base=parseInt(document.getElementById('f-price').value)||0;
+  const insurance=document.getElementById('ex-insurance').checked?5000:0;
+  const buffetQ=document.getElementById('ex-buffet').checked?parseFloat(document.getElementById('qty-buffet').value)||0:0;
+  const musicQ=document.getElementById('ex-music').checked?parseFloat(document.getElementById('qty-music').value)||0:0;
+  const jetskiQ=document.getElementById('ex-jetski').checked?parseFloat(document.getElementById('qty-jetski').value)||0:0;
+  const bananaQ=document.getElementById('ex-banana').checked?parseFloat(document.getElementById('qty-banana').value)||0:0;
+  const comboQ=document.getElementById('ex-combo').checked?parseFloat(document.getElementById('qty-combo').value)||0:0;
+  const mookataQ=document.getElementById('ex-mookata').checked?parseFloat(document.getElementById('qty-mookata').value)||0:0;
+  return base+insurance+buffetQ+(musicQ)+(jetskiQ*2500)+(bananaQ*3600)+(comboQ*2500)+(mookataQ*1990);
+}
+function calcTotal(){
+  const base=parseInt(document.getElementById('f-price').value)||0;
+  const dep=parseInt(document.getElementById('f-deposit').value)||0;
+  const depStatus=document.getElementById('f-deposit-status').value;
+
+  const insurance=document.getElementById('ex-insurance').checked?5000:0;
+  const buffetQ=document.getElementById('ex-buffet').checked?parseFloat(document.getElementById('qty-buffet').value)||0:0;
+  const musicQ=document.getElementById('ex-music').checked?parseFloat(document.getElementById('qty-music').value)||0:0;
+  const jetskiQ=document.getElementById('ex-jetski').checked?parseFloat(document.getElementById('qty-jetski').value)||0:0;
+  const bananaQ=document.getElementById('ex-banana').checked?parseFloat(document.getElementById('qty-banana').value)||0:0;
+  const comboQ=document.getElementById('ex-combo').checked?parseFloat(document.getElementById('qty-combo').value)||0:0;
+  const mookataQ=document.getElementById('ex-mookata').checked?parseFloat(document.getElementById('qty-mookata').value)||0:0;
+
+  const buffetAmt=buffetQ,musicAmt=musicQ;
+  const jetskiAmt=jetskiQ*2500,bananaAmt=bananaQ*3600,comboAmt=comboQ*2500,mookataAmt=mookataQ*1990;
+
+  document.getElementById('amt-buffet').textContent='฿'+buffetAmt.toLocaleString();
+  document.getElementById('amt-music').textContent='฿'+musicAmt.toLocaleString();
+  document.getElementById('amt-jetski').textContent='฿'+jetskiAmt.toLocaleString();
+  document.getElementById('amt-banana').textContent='฿'+bananaAmt.toLocaleString();
+  document.getElementById('amt-combo').textContent='฿'+comboAmt.toLocaleString();
+  document.getElementById('amt-mookata').textContent='฿'+mookataAmt.toLocaleString();
+
+  const extrasSum=buffetAmt+musicAmt+jetskiAmt+bananaAmt+comboAmt+mookataAmt;
+  const discPct=curDiscount||0;
+  const discAmt=Math.round(base*(discPct/100));
+  const total=(base-discAmt)+extrasSum+insurance;
+  const remain=Math.max(0,total-dep);
+
+  document.getElementById('sum-base').textContent='฿'+base.toLocaleString();
+  document.getElementById('sum-extras').textContent='฿'+extrasSum.toLocaleString();
+  document.getElementById('sum-total').textContent='฿'+total.toLocaleString();
+  document.getElementById('sum-extras-row').style.display=extrasSum>0?'flex':'none';
+  document.getElementById('sum-insurance-row').style.display=insurance>0?'flex':'none';
+  const discRow=document.getElementById('sum-discount-row');
+  if(discPct>0&&base>0){discRow.style.display='flex';document.getElementById('sum-disc-pct').textContent=discPct;document.getElementById('sum-disc-amt').textContent='-฿'+discAmt.toLocaleString();}
+  else{discRow.style.display='none';}
+
+  const splitBlock=document.getElementById('sum-split-block');
+  if(dep>0){
+    splitBlock.style.display='block';
+    document.getElementById('sum-deposit-amt').textContent='฿'+dep.toLocaleString();
+    document.getElementById('sum-remain-amt').textContent='฿'+remain.toLocaleString();
+    document.getElementById('sum-deposit-status-txt').textContent=depStatus==='paid'?'✅ รับแล้ว':'⏳ ยังไม่ได้รับ';
+  } else {
+    splitBlock.style.display='none';
+  }
+}
+let curDiscount=0;
+function setDiscount(pct){
+  curDiscount=pct;
+  document.querySelectorAll('.disc-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('disc-'+pct).classList.add('active');
+  const base=parseInt(document.getElementById('f-price').value)||0;
+  const infoEl=document.getElementById('discount-info');
+  if(pct>0&&base>0){
+    const save=Math.round(base*(pct/100));
+    document.getElementById('disc-pct-txt').textContent=pct+'%';
+    document.getElementById('disc-save-txt').textContent='฿'+save.toLocaleString();
+    infoEl.style.display='block';
+  } else {
+    infoEl.style.display='none';
+  }
+  calcTotal();
+}
+
+function resetExtras(){
+  ['insurance','buffet','music','jetski','banana','combo','mookata'].forEach(k=>{
+    document.getElementById('ex-'+k).checked=false;
+    const q=document.getElementById('qty-'+k);if(q)q.value='';
+    const a=document.getElementById('amt-'+k);if(a)a.textContent='฿0';
+  });
+  ['sum-extras-row','sum-insurance-row','sum-discount-row'].forEach(id=>document.getElementById(id).style.display='none');
+  document.getElementById('sum-split-block').style.display='none';
+  document.getElementById('discount-info').style.display='none';
+  document.getElementById('sum-base').textContent='฿0';
+  document.getElementById('sum-total').textContent='฿0';
+  curDiscount=0;
+  document.querySelectorAll('.disc-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('disc-0').classList.add('active');
+}
+function openAdd(){
+  eid=null;document.getElementById('addMTitle').textContent='เพิ่มการจอง';
+  ['f-name','f-phone','f-in','f-out','f-guests','f-price','f-deposit','f-note'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-prop').value=curP;
+  document.getElementById('f-status').value='pending';
+  document.getElementById('f-deposit-status').value='unpaid';
+  pendingSlip=null;
+  document.getElementById('slip-placeholder').style.display='block';
+  document.getElementById('slip-preview-wrap').style.display='none';
+  document.getElementById('slip-preview-wrap').innerHTML='';
+  resetExtras();
+  document.getElementById('addOv').classList.add('open');
+}
+function save(){
+  const prop=parseInt(document.getElementById('f-prop').value);
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const checkin=document.getElementById('f-in').value;
+  const checkout=document.getElementById('f-out').value;
+  const guests=parseInt(document.getElementById('f-guests').value)||2;
+  const price=parseInt(document.getElementById('f-price').value)||0;
+  const deposit=parseInt(document.getElementById('f-deposit').value)||0;
+  const depositStatus=document.getElementById('f-deposit-status').value;
+  const status=document.getElementById('f-status').value;
+  const note=document.getElementById('f-note').value.trim();
+  const slip=pendingSlip;
+  // extras
+  const ex={
+    insurance:document.getElementById('ex-insurance').checked,
+    buffet:document.getElementById('ex-buffet').checked?parseFloat(document.getElementById('qty-buffet').value)||0:0,
+    music:document.getElementById('ex-music').checked?parseFloat(document.getElementById('qty-music').value)||0:0,
+    jetski:document.getElementById('ex-jetski').checked?parseFloat(document.getElementById('qty-jetski').value)||0:0,
+    banana:document.getElementById('ex-banana').checked?parseFloat(document.getElementById('qty-banana').value)||0:0,
+    combo:document.getElementById('ex-combo').checked?parseFloat(document.getElementById('qty-combo').value)||0:0,
+    mookata:document.getElementById('ex-mookata').checked?parseFloat(document.getElementById('qty-mookata').value)||0:0,
+  };
+  const extrasTotal=(ex.insurance?5000:0)+ex.buffet+ex.music+(ex.jetski*2500)+(ex.banana*3600)+(ex.combo*2500)+(ex.mookata*1990);
+  const discount=curDiscount||0;
+  const discAmt=Math.round(price*(discount/100));
+  const totalPrice=(price-discAmt)+extrasTotal;
+  if(!name||!checkin||!checkout){alert('กรุณากรอกชื่อและวันที่');return;}
+  if(checkin>=checkout){alert('วันเช็คเอาท์ต้องหลังจากเช็คอิน');return;}
+  const rec={prop,name,phone,checkin,checkout,guests,price,deposit,depositStatus,slip,status,note,ex,extrasTotal,discount,discAmt,totalPrice};
+  if(eid){const i=bs.findIndex(b=>b.id===eid);const old=bs[i];rec.id=eid;rec.slip=slip!==null?slip:old.slip;bs[i]=rec;}
+  else{rec.id=nid++;bs.unshift(rec);}
+  cls('addOv');cls('detOv');renderCal();renderList();updStats();updateHomeMeta();
+}
+function openDet(id){
+  const b=bs.find(x=>x.id===id);if(!b)return;eid=id;
+  const n=nts(b.checkin,b.checkout);
+  const remaining=(b.price||0)-(b.deposit||0);
+  const depBadge=b.deposit>0?(b.depositStatus==='paid'?`<span class="paid-badge">💰 รับมัดจำแล้ว</span>`:`<span class="unpaid-badge">⏳ ยังไม่ได้รับมัดจำ</span>`):'';
+  const slipSection=b.slip?`
+    <div class="ditem" style="margin-bottom:12px;padding:12px 14px">
+      <div class="dkey" style="margin-bottom:8px">🧾 สลิปโอนเงิน</div>
+      <img class="slip-thumb" src="${b.slip}" onclick="viewSlip('${b.slip}')" title="แตะเพื่อดูรูปเต็ม">
+      <span style="font-size:11px;color:var(--text3);margin-left:8px;vertical-align:middle">แตะรูปเพื่อขยาย</span>
+    </div>`:`<div class="ditem" style="margin-bottom:12px;padding:12px 14px"><div class="dkey">🧾 สลิปโอนเงิน</div><div class="dval" style="font-size:12px;color:var(--text3);margin-top:2px">ไม่มีสลิปแนบ</div></div>`;
+  document.getElementById('detBody').innerHTML=`
+    <div class="mtitle"><span>${b.name}</span><button class="mclose" onclick="cls('detOv')">✕</button></div>
+    <div class="srow">
+      <div class="sbtn confirmed${b.status==='confirmed'?' on':''}" onclick="qs(${id},'confirmed')">✅ ยืนยัน</div>
+      <div class="sbtn pending${b.status==='pending'?' on':''}" onclick="qs(${id},'pending')">⏳ รอ</div>
+      <div class="sbtn cancelled${b.status==='cancelled'?' on':''}" onclick="qs(${id},'cancelled')">✕ ยกเลิก</div>
+    </div>
+    <div class="dgrid">
+      <div class="ditem"><div class="dkey">ที่พัก</div><div class="dval" style="font-size:12px">${PROPS[b.prop]}</div></div>
+      <div class="ditem"><div class="dkey">เบอร์โทร</div><div class="dval">${b.phone||'-'}</div></div>
+      <div class="ditem"><div class="dkey">เช็คอิน</div><div class="dval">${fmtTH(b.checkin)}</div></div>
+      <div class="ditem"><div class="dkey">เช็คเอาท์</div><div class="dval">${fmtTH(b.checkout)}</div></div>
+      <div class="ditem"><div class="dkey">จำนวนคืน</div><div class="dval">🌙 ${n} คืน</div></div>
+      <div class="ditem"><div class="dkey">ผู้เข้าพัก</div><div class="dval">👥 ${b.guests} คน</div></div>
+    </div>
+    <div class="ditem" style="margin-bottom:12px;padding:12px 14px">
+      <div class="dkey" style="margin-bottom:8px">💵 สรุปการชำระเงิน</div>
+      <div class="price-row"><span class="price-row-lbl">ราคาที่พัก</span><span class="price-row-val">฿${Number(b.price||0).toLocaleString()}</span></div>
+      ${b.discount>0?`<div class="price-row"><span class="price-row-lbl" style="color:var(--green)">🏷️ ส่วนลด ${b.discount}%</span><span class="price-row-val" style="color:var(--green)">-฿${Number(b.discAmt||0).toLocaleString()}</span></div>`:''}
+      ${b.ex&&b.ex.insurance?`<div class="price-row"><span class="price-row-lbl">ค่าประกันบ้าน</span><span class="price-row-val">฿5,000</span></div>`:''}
+      ${b.ex&&b.ex.buffet>0?`<div class="price-row"><span class="price-row-lbl">ค่าอาหารบุฟเฟ่</span><span class="price-row-val">฿${Number(b.ex.buffet).toLocaleString()}</span></div>`:''}
+      ${b.ex&&b.ex.music>0?`<div class="price-row"><span class="price-row-lbl">ค่าดนตรี</span><span class="price-row-val">฿${Number(b.ex.music).toLocaleString()}</span></div>`:''}
+      ${b.ex&&b.ex.jetski>0?`<div class="price-row"><span class="price-row-lbl">ค่าเจ็ทสกี (${b.ex.jetski} ชม.)</span><span class="price-row-val">฿${Number(b.ex.jetski*2500).toLocaleString()}</span></div>`:''}
+      ${b.ex&&b.ex.banana>0?`<div class="price-row"><span class="price-row-lbl">ค่าบานาน่าโบ๊ท (${b.ex.banana} ชม.)</span><span class="price-row-val">฿${Number(b.ex.banana*3600).toLocaleString()}</span></div>`:''}
+      ${b.ex&&b.ex.combo>0?`<div class="price-row"><span class="price-row-lbl">เจ็ทสกี+บานาน่าโบ๊ท (${b.ex.combo} ชม.)</span><span class="price-row-val">฿${Number(b.ex.combo*2500).toLocaleString()}</span></div>`:''}
+      ${b.ex&&b.ex.mookata>0?`<div class="price-row"><span class="price-row-lbl">Set หมูกระทะ (${b.ex.mookata} Set)</span><span class="price-row-val">฿${Number(b.ex.mookata*1990).toLocaleString()}</span></div>`:''}
+      <div class="price-row" style="border-top:1.5px solid var(--border);margin-top:4px;padding-top:10px"><span class="price-row-lbl" style="font-weight:500;color:var(--text)">ยอดรวมทั้งหมด</span><span class="price-total-val">฿${Number(b.totalPrice||b.price||0).toLocaleString()}</span></div>
+      ${b.deposit>0?`
+      <div style="padding:0 14px 12px;">
+        <div style="font-size:11px;color:var(--text3);margin-bottom:6px;">เปลี่ยนสถานะมัดจำ</div>
+        <div class="dep-toggle">
+          <button class="dep-toggle-btn${b.depositStatus==='paid'?' active-paid':''}" onclick="toggleDep(${id},'paid')">✅ รับมัดจำแล้ว</button>
+          <button class="dep-toggle-btn${b.depositStatus==='unpaid'?' active-unpaid':''}" onclick="toggleDep(${id},'unpaid')">⏳ ยังไม่ได้รับ</button>
+        </div>
+      </div>`:''}
+      ${b.deposit>0?`<div class="price-row"><span class="price-row-lbl">เงินมัดจำ ${depBadge}</span><span class="price-row-val" style="color:var(--green)">-฿${Number(b.deposit).toLocaleString()}</span></div><div class="sum-remain-row" style="margin-top:10px"><span class="sum-remain-lbl">ยอดคงเหลือที่ต้องจ่าย</span><span class="sum-remain-val">฿${Number(Math.max(0,(b.totalPrice||b.price||0)-b.deposit)).toLocaleString()}</span></div>`:''}
+    </div>
+    ${slipSection}
+    ${b.note?`<div class="ditem" style="margin-bottom:12px;padding:12px 14px"><div class="dkey">หมายเหตุ</div><div class="dval">${b.note}</div></div>`:''}
+    <button class="btn-p" onclick="openEdit(${id})">✏️ แก้ไขข้อมูล</button>
+    <button class="btn-d" onclick="del(${id})">ลบการจอง</button>`;
+  document.getElementById('detOv').classList.add('open');
+}
+function toggleDep(id,status){
+  const b=bs.find(x=>x.id===id);
+  if(b){b.depositStatus=status;saveData();openDet(id);renderList();renderTodayNotif();}
+}
+function qs(id,s){const b=bs.find(x=>x.id===id);if(b)b.status=s;openDet(id);renderCal();renderList();updStats();}
+function openEdit(id){
+  const b=bs.find(x=>x.id===id);eid=id;
+  document.getElementById('addMTitle').textContent='แก้ไขการจอง';
+  document.getElementById('f-prop').value=b.prop;
+  document.getElementById('f-name').value=b.name;
+  document.getElementById('f-phone').value=b.phone;
+  document.getElementById('f-in').value=b.checkin;
+  document.getElementById('f-out').value=b.checkout;
+  document.getElementById('f-guests').value=b.guests;
+  document.getElementById('f-price').value=b.price;
+  document.getElementById('f-deposit').value=b.deposit||'';
+  document.getElementById('f-deposit-status').value=b.depositStatus||'unpaid';
+  document.getElementById('f-status').value=b.status;
+  document.getElementById('f-note').value=b.note;
+  // restore extras
+  resetExtras();
+  if(b.discount){setDiscount(b.discount);}
+  if(b.ex){
+    document.getElementById('ex-insurance').checked=!!b.ex.insurance;
+    if(b.ex.buffet){document.getElementById('ex-buffet').checked=true;document.getElementById('qty-buffet').value=b.ex.buffet;}
+    if(b.ex.music){document.getElementById('ex-music').checked=true;document.getElementById('qty-music').value=b.ex.music;}
+    if(b.ex.jetski){document.getElementById('ex-jetski').checked=true;document.getElementById('qty-jetski').value=b.ex.jetski;}
+    if(b.ex.banana){document.getElementById('ex-banana').checked=true;document.getElementById('qty-banana').value=b.ex.banana;}
+    if(b.ex.combo){document.getElementById('ex-combo').checked=true;document.getElementById('qty-combo').value=b.ex.combo;}
+    if(b.ex.mookata){document.getElementById('ex-mookata').checked=true;document.getElementById('qty-mookata').value=b.ex.mookata;}
+    calcTotal();
+  }
+  pendingSlip=null;
+  const ph=document.getElementById('slip-placeholder'),pw=document.getElementById('slip-preview-wrap');
+  if(b.slip){ph.style.display='none';pw.style.display='block';pw.innerHTML=`<div class="slip-preview"><img src="${b.slip}"><button class="slip-remove" onclick="removeSlip(event)">✕</button></div>`;}
+  else{ph.style.display='block';pw.style.display='none';pw.innerHTML='';}
+  cls('detOv');document.getElementById('addOv').classList.add('open');
+}
+function cls(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+
+function enterProp(i){
+  curP=i; curPL=i;
+  const icons=['🏊','🌿'];
+  document.getElementById('topbarBrand').innerHTML=`<div class="brand-icon">${icons[i]}</div>`;
+  document.getElementById('propNameTopbar').textContent=PROPS[i];
+  document.getElementById('propNameTopbar').style.display='block';
+  document.getElementById('brandSubText').style.display='none';
+  document.getElementById('backBtn').style.display='flex';
+  document.getElementById('homeScreen').style.display='none';
+  
+  document.querySelector('.bottom-nav').style.display='flex';
+  document.querySelector('.fab').style.display='flex';
+  [0,1].forEach(j=>{
+    document.getElementById('ptab-'+j).classList.toggle('active',j===i);
+    document.getElementById('ltab-'+j).classList.toggle('active',j===i);
+  });
+  document.getElementById('propTitle').textContent=PROPS[i];
+  updImg(); updStats(); renderCal();
+  document.getElementById('daySection').innerHTML='';
+  renderTodayNotif();
+  switchTab('calendar');
+}
+function goHome(){
+  document.getElementById('homeScreen').style.display='flex';
+  
+  document.querySelector('.bottom-nav').style.display='none';
+  document.querySelector('.fab').style.display='none';
+  document.getElementById('backBtn').style.display='none';
+  document.getElementById('propNameTopbar').style.display='none';
+  document.getElementById('brandSubText').style.display='block';
+  updateHomeMeta();
+}
+function updateHomeMeta(){
+  [0,1].forEach(i=>{
+    const con=bs.filter(b=>b.prop===i&&b.status==='confirmed').length;
+    const pen=bs.filter(b=>b.prop===i&&b.status==='pending').length;
+    document.getElementById('homeMeta'+i).textContent=`ยืนยัน ${con} · รอดำเนิน ${pen} การจอง`;
+    if(pImgs[i]) document.getElementById('homeImg'+i).innerHTML=`<img src="${pImgs[i]}">`;
+  });
+}
+
+/* ===== TODAY NOTIFICATIONS ===== */
+function renderTodayNotif(){
+  const td=tstr();
+  const checkins=bs.filter(b=>b.checkin===td&&b.status!=='cancelled');
+  const checkouts=bs.filter(b=>b.checkout===td&&b.status!=='cancelled');
+  const pendingDep=bs.filter(b=>b.depositStatus==='unpaid'&&b.status==='confirmed'&&b.checkin>=td);
+  const el=document.getElementById('todayNotif');
+  let html='';
+  if(checkins.length>0){
+    html+=`<div class="notif-box"><div class="notif-header"><div class="notif-dot" style="background:var(--green)"></div><span class="notif-title">🏠 เช็คอินวันนี้</span><span class="notif-count">${checkins.length}</span></div><div>`;
+    checkins.forEach(b=>{html+=`<div class="notif-item" onclick="openDet(${b.id})"><strong>${b.name}</strong> · ${PROPS[b.prop]} · ${b.guests} คน</div>`;});
+    html+=`</div></div>`;
+  }
+  if(checkouts.length>0){
+    html+=`<div class="notif-box"><div class="notif-header"><div class="notif-dot" style="background:var(--orange)"></div><span class="notif-title">🧳 เช็คเอาท์วันนี้</span><span class="notif-count">${checkouts.length}</span></div><div>`;
+    checkouts.forEach(b=>{html+=`<div class="notif-item" onclick="openDet(${b.id})"><strong>${b.name}</strong> · ${PROPS[b.prop]} · ค้างชำระ ฿${Number(Math.max(0,(b.totalPrice||b.price||0)-b.deposit)).toLocaleString()}</div>`;});
+    html+=`</div></div>`;
+  }
+  if(pendingDep.length>0){
+    html+=`<div class="notif-box"><div class="notif-header"><div class="notif-dot" style="background:var(--red)"></div><span class="notif-title">⚠️ รอรับมัดจำ</span><span class="notif-count">${pendingDep.length}</span></div><div>`;
+    pendingDep.forEach(b=>{html+=`<div class="notif-item" onclick="openDet(${b.id})"><strong>${b.name}</strong> · เช็คอิน ${fmtTH(b.checkin)} · ฿${Number(b.deposit||0).toLocaleString()}</div>`;});
+    html+=`</div></div>`;
+  }
+  el.innerHTML=html;
+}
+
+/* ===== REVENUE ===== */
+let revM=new Date();revM.setDate(1);
+function chgRevMonth(d){revM.setMonth(revM.getMonth()+d);renderRevenue();}
+function renderRevenue(){
+  const yr=revM.getFullYear(),mo=revM.getMonth();
+  document.getElementById('revMonthTitle').textContent=MONTHS[mo]+' '+(yr+543);
+  const mbs=bs.filter(b=>{
+    const ci=new Date(b.checkin+'T00:00:00');
+    return ci.getFullYear()===yr&&ci.getMonth()===mo&&b.status!=='cancelled';
+  });
+  const total=mbs.reduce((s,b)=>s+(b.totalPrice||b.price||0),0);
+  const received=mbs.reduce((s,b)=>s+(b.depositStatus==='paid'?b.deposit||0:0),0);
+  const pending=total-received;
+  const p0=mbs.filter(b=>b.prop===0),p1=mbs.filter(b=>b.prop===1);
+  const t0=p0.reduce((s,b)=>s+(b.totalPrice||b.price||0),0);
+  const t1=p1.reduce((s,b)=>s+(b.totalPrice||b.price||0),0);
+  let html=`
+  <div class="rev-cards">
+    <div class="rev-card full">
+      <div class="rev-card-lbl">รายได้รวมเดือนนี้</div>
+      <div class="rev-card-val" style="color:var(--gold);font-size:28px;">฿${total.toLocaleString()}</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-card-lbl">รับเงินแล้ว</div>
+      <div class="rev-card-val" style="color:var(--green);">฿${received.toLocaleString()}</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-card-lbl">ยังไม่ได้รับ</div>
+      <div class="rev-card-val" style="color:var(--orange);">฿${pending.toLocaleString()}</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-card-lbl">จำนวนการจอง</div>
+      <div class="rev-card-val" style="color:var(--text);">${mbs.length} รายการ</div>
+    </div>
+    <div class="rev-card">
+      <div class="rev-card-lbl">จำนวนคืนรวม</div>
+      <div class="rev-card-val" style="color:var(--text);">${mbs.reduce((s,b)=>s+nts(b.checkin,b.checkout),0)} คืน</div>
+    </div>
+  </div>
+  <div class="rev-card" style="margin-bottom:14px;">
+    <div class="rev-card-lbl" style="margin-bottom:10px;">แยกตามที่พัก</div>
+    <div class="rev-prop-row"><span class="rev-prop-name">🏊 ปณิตาพูลวิลล่า</span><span class="rev-prop-val">฿${t0.toLocaleString()} <span style="font-size:11px;color:var(--text3)">(${p0.length} รายการ)</span></span></div>
+    <div class="rev-prop-row"><span class="rev-prop-name">🌿 บ้านสวนกิ๊บ</span><span class="rev-prop-val">฿${t1.toLocaleString()} <span style="font-size:11px;color:var(--text3)">(${p1.length} รายการ)</span></span></div>
+  </div>`;
+  if(mbs.length>0){
+    html+=`<div class="rev-card"><div class="rev-card-lbl" style="margin-bottom:10px;">รายการจองเดือนนี้</div>`;
+    mbs.sort((a,b)=>a.checkin.localeCompare(b.checkin)).forEach(b=>{
+      const rem=Math.max(0,(b.totalPrice||b.price||0)-(b.deposit||0));
+      html+=`<div class="rev-list-item" onclick="openDet(${b.id})">
+        <div class="rev-list-left">
+          <div class="rev-list-name">${b.name}</div>
+          <div class="rev-list-meta">${PROPS[b.prop]} · ${fmtTH(b.checkin)} · ${nts(b.checkin,b.checkout)} คืน${rem>0?` · <span style="color:var(--orange)">ค้าง ฿${rem.toLocaleString()}</span>`:' · <span style="color:var(--green)">ชำระครบ</span>'}</div>
+        </div>
+        <div class="rev-list-price">฿${Number(b.totalPrice||b.price||0).toLocaleString()}</div>
+      </div>`;
+    });
+    html+=`</div>`;
+  } else {
+    html+=`<div class="empty"><div class="empty-icon">📊</div><div class="empty-text">ยังไม่มีการจองเดือนนี้</div></div>`;
+  }
+  document.getElementById('revContent').innerHTML=html;
+}
+// Init: show home screen, hide app chrome
+
+document.querySelector('.bottom-nav').style.display='none';
+document.querySelector('.fab').style.display='none';
+updateHomeMeta();
+
+/* ============ FIREBASE SYNC ============ */
+const FB_URL='https://panitapoolvilla-4cfc6-default-rtdb.asia-southeast1.firebasedatabase.app';
+const FB_PATH='/villaReserve';
+let isSyncing=false;
+
+async function fbGet(path){
+  try{
+    const r=await fetch(FB_URL+path+'.json');
+    if(!r.ok)throw new Error('fetch failed');
+    return await r.json();
+  }catch(e){console.warn('fbGet error',e);return null;}
+}
+async function fbSet(path,data){
+  try{
+    const r=await fetch(FB_URL+path+'.json',{
+      method:'PUT',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(data)
+    });
+    if(!r.ok)throw new Error('set failed');
+    return true;
+  }catch(e){console.warn('fbSet error',e);return false;}
+}
+async function fbPatch(path,data){
+  try{
+    const r=await fetch(FB_URL+path+'.json',{
+      method:'PATCH',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(data)
+    });
+    return r.ok;
+  }catch(e){return false;}
+}
+
+function showSyncStatus(state){
+  let el=document.getElementById('syncStatus');
+  if(!el){
+    el=document.createElement('div');
+    el.id='syncStatus';
+    el.style.cssText='position:fixed;top:10px;right:12px;z-index:9000;font-size:10px;padding:3px 9px;border-radius:10px;letter-spacing:.03em;transition:all .3s;font-family:Sarabun,sans-serif;';
+    document.body.appendChild(el);
+  }
+  if(state==='saving'){el.style.background='#FFF3CD';el.style.color='#856404';el.style.border='1px solid #FFEAA7';el.textContent='⏳ กำลังบันทึก...';}
+  else if(state==='ok'){el.style.background='#D4EDDA';el.style.color='#155724';el.style.border='1px solid #C3E6CB';el.textContent='✅ ซิงค์แล้ว';setTimeout(()=>{el.style.opacity='0';setTimeout(()=>{el.style.opacity='1';el.textContent='';el.style.background='transparent';el.style.border='none';},500);},2000);}
+  else if(state==='error'){el.style.background='#F8D7DA';el.style.color='#721C24';el.style.border='1px solid #F5C6CB';el.textContent='❌ บันทึกไม่ได้ (offline)';}
+}
+
+async function saveData(){
+  if(isSyncing)return;
+  isSyncing=true;
+  showSyncStatus('saving');
+  // strip slip images from bs to keep payload small, store separately
+  const bsClean=bs.map(b=>({...b,slip:b.slip?'__has_slip__':null}));
+  const slips={};bs.forEach(b=>{if(b.slip&&b.slip!=='__has_slip__')slips['s'+b.id]=b.slip;});
+  const ok=await fbSet(FB_PATH,{bs:bsClean,nid,updatedAt:Date.now()});
+  if(Object.keys(slips).length>0)await fbPatch(FB_PATH+'/slips',slips);
+  // also cache locally
+  try{localStorage.setItem('vr_cache',JSON.stringify({bs,pImgs,nid}));}catch(e){}
+  isSyncing=false;
+  showSyncStatus(ok?'ok':'error');
+}
+
+async function saveImgs(){
+  // store property images separately (can be large)
+  await fbPatch(FB_PATH+'/pImgs',{img0:pImgs[0]||null,img1:pImgs[1]||null});
+}
+
+async function loadData(){
+  showSyncStatus('saving');
+  // try Firebase first
+  try{
+    const d=await fbGet(FB_PATH);
+    if(d&&d.bs&&Array.isArray(d.bs)){
+      // restore slips
+      const slips=d.slips||{};
+      bs=d.bs.map(b=>({...b,slip:b.slip==='__has_slip__'?(slips['s'+b.id]||null):b.slip}));
+      if(d.nid)nid=d.nid;
+      // load images
+      const imgs=await fbGet(FB_PATH+'/pImgs');
+      if(imgs){pImgs[0]=imgs.img0||null;pImgs[1]=imgs.img1||null;}
+      try{localStorage.setItem('vr_cache',JSON.stringify({bs,pImgs,nid}));}catch(e){}
+      showSyncStatus('ok');
+      return true;
+    }
+  }catch(e){console.warn('Firebase load failed, using cache');}
+  // fallback to local cache
+  try{
+    const raw=localStorage.getItem('vr_cache');
+    if(raw){
+      const d=JSON.parse(raw);
+      if(d.bs)bs=d.bs;
+      if(d.pImgs){pImgs[0]=d.pImgs[0];pImgs[1]=d.pImgs[1];}
+      if(d.nid)nid=d.nid;
+      showSyncStatus('error');
+      showToast('⚠️ ใช้ข้อมูล offline (ไม่มีอินเทอร์เน็ต)');
+      return true;
+    }
+  }catch(e){}
+  showSyncStatus('ok');
+  return false;
+}
+
+// realtime listener via long-polling every 8 sec when app is visible
+let pollTimer=null;
+async function pollFirebase(){
+  try{
+    const d=await fbGet(FB_PATH);
+    if(d&&d.bs&&Array.isArray(d.bs)){
+      const slips=d.slips||{};
+      const newBs=d.bs.map(b=>({...b,slip:b.slip==='__has_slip__'?(slips['s'+b.id]||null):b.slip}));
+      // only update if changed
+      const newStr=JSON.stringify(newBs.map(b=>({id:b.id,status:b.status,depositStatus:b.depositStatus})));
+      const oldStr=JSON.stringify(bs.map(b=>({id:b.id,status:b.status,depositStatus:b.depositStatus})));
+      if(newStr!==oldStr||newBs.length!==bs.length){
+        bs=newBs;
+        if(d.nid&&d.nid>nid)nid=d.nid;
+        renderCal();renderList();updStats();updateHomeMeta();renderTodayNotif();
+        showToast('🔄 ข้อมูลอัปเดตแล้ว');
+      }
+    }
+  }catch(e){}
+}
+function startPolling(){
+  stopPolling();
+  pollTimer=setInterval(pollFirebase,8000);
+}
+function stopPolling(){if(pollTimer){clearInterval(pollTimer);pollTimer=null;}}
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden)stopPolling();else{pollFirebase();startPolling();}
+});
+
+// patch save/qs/del to auto-save to Firebase
+const _origSave=save;
+save=function(){_origSave();saveData();updateHomeMeta();};
+const _origQs=qs;
+qs=function(id,s){_origQs(id,s);saveData();};
+const _origDel=del;
+del=function(id){
+  document.getElementById('confirmIcon').textContent='🗑️';
+  document.getElementById('confirmTitle').textContent='ลบการจอง?';
+  document.getElementById('confirmMsg').innerHTML='การจองนี้จะถูกลบออกถาวร<br>ไม่สามารถกู้คืนได้';
+  document.getElementById('confirmOv').classList.add('open');
+  document.getElementById('confirmOkBtn').onclick=function(){
+    bs=bs.filter(b=>b.id!==id);
+    document.getElementById('confirmOv').classList.remove('open');
+    cls('detOv');
+    renderCal();renderList();updStats();updateHomeMeta();saveData();
+    document.getElementById('confirmIcon').textContent='🗑️';
+    document.getElementById('confirmTitle').textContent='ลบการจอง?';
+    document.getElementById('confirmMsg').innerHTML='การจองนี้จะถูกลบออกถาวร<br>ไม่สามารถกู้คืนได้';
+  };
+};
+const _hi=handleImg;
+handleImg=function(e){_hi(e);saveData();saveImgs();};
+
+/* ============ EXPORT ============ */
+function exportData(){
+  const d=JSON.stringify({bs,pImgs,nid,exportedAt:new Date().toISOString()},null,2);
+  const blob=new Blob([d],{type:'application/json'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  const dt=new Date();
+  a.href=url;
+  a.download=`villa-reserve-backup-${dt.getFullYear()}${String(dt.getMonth()+1).padStart(2,'0')}${String(dt.getDate()).padStart(2,'0')}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast('✅ Export สำเร็จ!');
+}
+
+/* ============ IMPORT ============ */
+function importData(e){
+  const file=e.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=function(ev){
+    try{
+      const d=JSON.parse(ev.target.result);
+      if(!d.bs||!Array.isArray(d.bs))throw new Error('invalid');
+      bs=d.bs;
+      if(d.pImgs){pImgs[0]=d.pImgs[0];pImgs[1]=d.pImgs[1];}
+      if(d.nid)nid=d.nid;
+      saveData();saveImgs();
+      renderCal();renderList();updStats();updateHomeMeta();updImg();
+      showToast('✅ Import สำเร็จ '+d.bs.length+' รายการ!');
+    }catch(err){
+      showToast('❌ ไฟล์ไม่ถูกต้อง');
+    }
+    e.target.value='';
+  };
+  reader.readAsText(file);
+}
+
+/* ============ TOAST ============ */
+function showToast(msg){
+  let t=document.getElementById('toastEl');
+  if(!t){t=document.createElement('div');t.id='toastEl';t.style.cssText='position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:#1A1A1A;color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.3);transition:opacity .3s;max-width:320px;text-align:center;';document.body.appendChild(t);}
+  t.textContent=msg;t.style.opacity='1';
+  clearTimeout(t._to);t._to=setTimeout(()=>{t.style.opacity='0';},2500);
+}
+
+/* ============ LOAD ON START ============ */
+loadData().then(()=>{
+  renderCal();updStats();renderList();updateHomeMeta();
+  startPolling();
+});
+
+</script>
+
+</body>
+</html>
