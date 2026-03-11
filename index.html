@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Villa Reserve</title>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <style>
 :root {
   --gold: #B8922A;
@@ -450,6 +451,78 @@ body{background:var(--bg);color:var(--text);font-family:'Prompt',sans-serif;font
   </div>
   <div class="nav-item" onclick="doLogout()">
     <div class="nav-icon">🚪</div><div class="nav-lbl">ออก</div>
+  </div>
+</div>
+
+<!-- TAX INVOICE MODAL -->
+<div class="overlay" id="taxOv">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="handle"></div>
+    <div class="mtitle"><span>🧾 ข้อมูลใบกำกับภาษี</span><button class="mclose" onclick="cls('taxOv')">✕</button></div>
+
+    <div style="font-size:11px;color:var(--text3);margin-bottom:14px;">กรอกข้อมูลที่ต้องการให้ปรากฏในใบกำกับภาษี</div>
+
+    <div style="font-size:12px;font-weight:600;color:var(--gold);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--border);">ข้อมูลผู้ออกบิล (บริษัท)</div>
+    <div class="fg"><label class="flabel">ชื่อบริษัท / ชื่อกิจการ</label><input class="finput" id="tax-company" value="บริษัท อมรรัตน์789 เรียลเอสเตท จำกัด (สำนักงานใหญ่)" type="text"></div>
+    <div class="fg"><label class="flabel">ชื่อภาษาอังกฤษ</label><input class="finput" id="tax-company-en" value="AMONRAT789 REALESTATE CO.,LTD. (HEAD OFFICE)" type="text"></div>
+    <div class="fg"><label class="flabel">ที่อยู่บริษัท</label><textarea class="finput" id="tax-company-addr" rows="2" style="resize:none;">99 หมู่ที่ 7 ตำบลบางแพ อำเภอบางแพ จังหวัดราชบุรี 70160</textarea></div>
+    <div class="frow">
+      <div class="fg"><label class="flabel">เลข Tax ID บริษัท</label><input class="finput" id="tax-company-taxid" value="0705566003269" type="text"></div>
+      <div class="fg"><label class="flabel">เบอร์โทร / Email</label><input class="finput" id="tax-company-phone" value="032-918945, 099-9692945" type="text"></div>
+    </div>
+    <div class="fg"><label class="flabel">Email</label><input class="finput" id="tax-company-email" value="gibza25282528@gmail.com" type="email"></div>
+
+    <div style="font-size:12px;font-weight:600;color:var(--gold);margin:14px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border);">ข้อมูลลูกค้า</div>
+    <div class="fg"><label class="flabel">ชื่อบริษัท / ชื่อลูกค้า</label><input class="finput" id="tax-client" placeholder="ชื่อบริษัทหรือชื่อ-นามสกุลลูกค้า" type="text"></div>
+    <div class="fg"><label class="flabel">ที่อยู่ลูกค้า</label><textarea class="finput" id="tax-client-addr" placeholder="เลขที่ ถนน ตำบล อำเภอ จังหวัด รหัสไปรษณีย์" rows="2" style="resize:none;"></textarea></div>
+    <div class="frow">
+      <div class="fg"><label class="flabel">เลข Tax ID ลูกค้า</label><input class="finput" id="tax-client-taxid" placeholder="(ถ้ามี)" type="text"></div>
+      <div class="fg"><label class="flabel">เบอร์โทรลูกค้า</label><input class="finput" id="tax-client-phone" placeholder="0xx-xxx-xxxx" type="tel"></div>
+    </div>
+
+    <div style="font-size:12px;font-weight:600;color:var(--gold);margin:14px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border);">วิธีชำระเงิน</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px;">
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:8px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:var(--white);">
+        <input type="radio" name="tax-pay" value="cash" id="pay-cash" style="accent-color:var(--gold);width:16px;height:16px;"> เงินสด
+      </label>
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:8px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:var(--white);">
+        <input type="radio" name="tax-pay" value="transfer" id="pay-transfer" checked style="accent-color:var(--gold);width:16px;height:16px;"> โอนเงิน
+      </label>
+      <label style="display:flex;align-items:center;gap:6px;cursor:pointer;padding:8px 14px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;background:var(--white);">
+        <input type="radio" name="tax-pay" value="cheque" id="pay-cheque" style="accent-color:var(--gold);width:16px;height:16px;"> เช็ค
+      </label>
+    </div>
+    <div class="fg"><label class="flabel">ธนาคาร</label><input class="finput" id="tax-bank" value="ธนาคารทหารไทยธนาชาติ (TTB) สาขา โพธาราม" type="text"></div>
+    <div class="frow">
+      <div class="fg"><label class="flabel">เลขที่บัญชี / เช็ค</label><input class="finput" id="tax-accno" value="482-296-7057" type="text"></div>
+      <div class="fg"><label class="flabel">ลงวันที่</label><input class="finput" id="tax-paydate" type="text" placeholder="วว/ดด/ปปปป"></div>
+    </div>
+
+    <div style="font-size:12px;font-weight:600;color:var(--gold);margin:14px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--border);">ข้อมูลเอกสาร</div>
+    <div class="frow">
+      <div class="fg"><label class="flabel">เลขที่ใบกำกับ</label><input class="finput" id="tax-docno" placeholder="INV-0001" type="text"></div>
+      <div class="fg"><label class="flabel">วันที่ออกเอกสาร</label><input class="finput" id="tax-docdate" type="date"></div>
+    </div>
+    <div class="frow">
+      <div class="fg"><label class="flabel">ชื่อพนักงานออกบิล</label><input class="finput" id="tax-issuer" placeholder="ชื่อ-นามสกุล" type="text"></div>
+      <div class="fg"><label class="flabel">ประเภทเอกสาร</label>
+        <select class="fselect" id="tax-doctype">
+          <option value="quotation">ใบเสนอราคา</option>
+          <option value="invoice">ใบแจ้งหนี้</option>
+          <option value="receipt">ใบเสร็จรับเงิน</option>
+          <option value="tax">ใบกำกับภาษี</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="fg" style="margin-top:4px;">
+      <label style="display:flex;align-items:center;gap:10px;cursor:pointer;padding:10px 12px;background:var(--gold-bg);border:1.5px solid var(--border2);border-radius:10px;">
+        <input type="checkbox" id="tax-vat" style="width:18px;height:18px;cursor:pointer;accent-color:var(--gold);">
+        <span style="font-size:13px;color:var(--text);font-weight:500;">คิด VAT 7% (จะแสดงราคาก่อน VAT และ VAT แยกต่างหาก)</span>
+      </label>
+    </div>
+
+    <button class="btn-p" onclick="genTaxPDF()" style="margin-top:12px;">🖨️ สร้างเอกสาร PDF</button>
   </div>
 </div>
 
@@ -963,8 +1036,8 @@ function openDet(id){
     <div class="dgrid">
       <div class="ditem"><div class="dkey">ที่พัก</div><div class="dval" style="font-size:12px">${PROPS[b.prop]}</div></div>
       <div class="ditem"><div class="dkey">เบอร์โทร</div><div class="dval">${b.phone||'-'}</div></div>
-      <div class="ditem"><div class="dkey">เช็คอิน</div><div class="dval">${fmtTH(b.checkin)}</div></div>
-      <div class="ditem"><div class="dkey">เช็คเอาท์</div><div class="dval">${fmtTH(b.checkout)}</div></div>
+      <div class="ditem"><div class="dkey">เช็คอิน</div><div class="dval">${fmtTH(b.checkin)} <span style="color:var(--text3);font-size:11px;">เวลา 14.00 น.</span></div></div>
+      <div class="ditem"><div class="dkey">เช็คเอาท์</div><div class="dval">${fmtTH(b.checkout)} <span style="color:var(--text3);font-size:11px;">เวลา 11.00 น.</span></div></div>
       <div class="ditem"><div class="dkey">จำนวนคืน</div><div class="dval">🌙 ${n} คืน</div></div>
       <div class="ditem"><div class="dkey">ผู้เข้าพัก</div><div class="dval">👥 ${b.guests} คน</div></div>
     </div>
@@ -993,9 +1066,436 @@ function openDet(id){
     ${slipSection}
     ${b.note?`<div class="ditem" style="margin-bottom:12px;padding:12px 14px"><div class="dkey">หมายเหตุ</div><div class="dval">${b.note}</div></div>`:''}
     <button class="btn-p" onclick="openEdit(${id})">✏️ แก้ไขข้อมูล</button>
+    <button class="btn-p" style="background:var(--white);color:var(--gold);border:1.5px solid var(--border2);margin-top:8px;" onclick="genPDF(${id})">📄 ใบเสนอราคา (ทั่วไป)</button>
+    <button class="btn-p" style="background:var(--white);color:var(--text2);border:1.5px solid var(--border);margin-top:6px;" onclick="openTaxForm(${id})">🧾 ใบกำกับภาษี / ใบเสนอราคาทางการ</button>
     <button class="btn-d" onclick="del(${id})">ลบการจอง</button>`;
   document.getElementById('detOv').classList.add('open');
 }
+/* ===== PDF GENERATOR (HTML Print) ===== */
+function genPDF(id){
+  const b=bs.find(x=>x.id===id);
+  if(!b){showToast('ไม่พบข้อมูลการจอง');return;}
+  const nights=nts(b.checkin,b.checkout);
+  const total=b.totalPrice||b.price||0;
+  const remain=Math.max(0,total-(b.deposit||0));
+  const stMap={confirmed:'ยืนยันแล้ว',pending:'รอดำเนิน',cancelled:'ยกเลิก'};
+  const stColor={confirmed:'#2E7D52',pending:'#B86A10',cancelled:'#AA2828'};
+  const today=new Date();
+  const todayStr=`${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()+543}`;
+  const ex=b.ex||{};
+  let extrasRows='';
+  if(ex.insurance) extrasRows+=`<tr><td>ค่าประกันบ้าน</td><td class="amt">฿5,000</td></tr>`;
+  if(ex.buffet>0) extrasRows+=`<tr><td>ค่าอาหารบุฟเฟ่</td><td class="amt">฿${Number(ex.buffet).toLocaleString()}</td></tr>`;
+  if(ex.music>0) extrasRows+=`<tr><td>ค่าดนตรี</td><td class="amt">฿${Number(ex.music).toLocaleString()}</td></tr>`;
+  if(ex.jetski>0) extrasRows+=`<tr><td>ค่าเจ็ทสกี (${ex.jetski} ชม.)</td><td class="amt">฿${Number(ex.jetski*2500).toLocaleString()}</td></tr>`;
+  if(ex.banana>0) extrasRows+=`<tr><td>ค่าบานาน่าโบ๊ท (${ex.banana} ชม.)</td><td class="amt">฿${Number(ex.banana*3600).toLocaleString()}</td></tr>`;
+  if(ex.combo>0) extrasRows+=`<tr><td>เจ็ทสกี+บานาน่าโบ๊ท (${ex.combo} ชม.)</td><td class="amt">฿${Number(ex.combo*2500).toLocaleString()}</td></tr>`;
+  if(ex.mookata>0) extrasRows+=`<tr><td>Set หมูกระทะ (${ex.mookata} Set)</td><td class="amt">฿${Number(ex.mookata*1990).toLocaleString()}</td></tr>`;
+
+  const html=`<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8">
+<title>ใบเสนอราคา - ${b.name}</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Prompt',sans-serif;color:#1A1410;background:#fff;padding:0;}
+  @page{size:A4;margin:15mm 18mm;}
+  @media print{body{padding:0;}}
+  .header{background:#F8F5F0;border-bottom:2px solid #B8922A;padding:18px 20px;display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:18px;}
+  .brand-name{font-size:22px;font-weight:600;color:#B8922A;}
+  .brand-sub{font-size:9px;color:#9A8E7E;letter-spacing:.12em;text-transform:uppercase;margin-top:2px;}
+  .doc-type{font-size:10px;color:#5A4F3E;margin-top:6px;}
+  .header-right{text-align:right;}
+  .doc-no{font-size:11px;color:#5A4F3E;margin-bottom:3px;}
+  .status-badge{display:inline-block;padding:4px 12px;border-radius:12px;font-size:10px;font-weight:500;color:white;background:${stColor[b.status]||'#5A4F3E'};}
+  .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+  .info-box{background:#F5F2EC;border:1px solid #E2DAC8;border-radius:8px;padding:12px 14px;}
+  .info-label{font-size:9px;color:#9A8E7E;letter-spacing:.06em;text-transform:uppercase;margin-bottom:4px;}
+  .info-val{font-size:13px;font-weight:500;color:#1A1410;}
+  .info-sub{font-size:11px;color:#5A4F3E;margin-top:2px;}
+  .stay-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:18px;}
+  .stay-box{background:#F5F2EC;border:1px solid #E2DAC8;border-radius:8px;padding:10px;text-align:center;}
+  .stay-label{font-size:8px;color:#9A8E7E;letter-spacing:.06em;margin-bottom:4px;}
+  .stay-val{font-size:13px;font-weight:600;color:#1A1410;}
+  .section-title{font-size:11px;font-weight:600;color:#1A1410;margin-bottom:8px;}
+  table{width:100%;border-collapse:collapse;margin-bottom:14px;font-size:12px;}
+  thead tr{background:#E8E0D0;}
+  thead th{padding:7px 10px;text-align:left;font-weight:500;color:#5A4F3E;font-size:10px;}
+  thead th.amt{text-align:right;}
+  tbody tr{border-bottom:1px solid #F0EBE0;}
+  tbody td{padding:7px 10px;color:#1A1410;}
+  tbody tr.sub td{background:#FAFAF8;color:#5A4F3E;font-size:11px;}
+  td.amt{text-align:right;}
+  tr.disc td{color:#2E7D52;}
+  tr.total-row td{background:#F0EAD8;font-weight:600;font-size:13px;}
+  tr.total-row td.amt{color:#B8922A;font-size:15px;}
+  .payment-box{background:#F5F2EC;border:1px solid #E2DAC8;border-radius:8px;padding:12px 14px;margin-bottom:14px;}
+  .pay-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed #E2DAC8;font-size:12px;}
+  .pay-row:last-child{border:none;font-weight:600;font-size:13px;}
+  .pay-label{color:#5A4F3E;}
+  .pay-val{font-weight:500;}
+  .note-box{background:#FFF9EE;border:1px solid #E2DAC8;border-radius:8px;padding:10px 14px;margin-bottom:14px;font-size:11px;color:#5A4F3E;}
+  .footer{border-top:1px solid #E2DAC8;padding-top:10px;text-align:center;font-size:9px;color:#9A8E7E;margin-top:auto;}
+  .print-btn{position:fixed;bottom:20px;right:20px;background:#B8922A;color:white;border:none;padding:12px 24px;border-radius:10px;font-family:'Prompt',sans-serif;font-size:14px;cursor:pointer;box-shadow:0 4px 16px rgba(184,146,42,.4);}
+  @media print{.print-btn{display:none;}}
+</style></head><body>
+<div class="header">
+  <div>
+    <div class="brand-name">Villa Reserve</div>
+    <div class="brand-sub">Pool Villa Management</div>
+    <div class="doc-type">ใบเสนอราคา / Quotation</div>
+  </div>
+  <div class="header-right">
+    <div class="doc-no">เลขที่: QT-${String(b.id).padStart(4,'0')}</div>
+    <div class="doc-no">วันที่ออก: ${todayStr}</div>
+    <div style="margin-top:6px"><span class="status-badge">${stMap[b.status]||b.status}</span></div>
+  </div>
+</div>
+
+<div class="info-grid">
+  <div class="info-box">
+    <div class="info-label">ที่พัก</div>
+    <div class="info-val">${PROPS[b.prop]}</div>
+  </div>
+  <div class="info-box">
+    <div class="info-label">ผู้จอง</div>
+    <div class="info-val">${b.name||'-'}</div>
+    <div class="info-sub">${b.phone||''}</div>
+  </div>
+</div>
+
+<div class="stay-grid">
+  <div class="stay-box"><div class="stay-label">วันเช็คอิน</div><div class="stay-val">${fmtTH(b.checkin)}</div><div style="font-size:10px;color:#9A8E7E;margin-top:2px;">14.00 น.</div></div>
+  <div class="stay-box"><div class="stay-label">วันเช็คเอาท์</div><div class="stay-val">${fmtTH(b.checkout)}</div><div style="font-size:10px;color:#9A8E7E;margin-top:2px;">11.00 น.</div></div>
+  <div class="stay-box"><div class="stay-label">จำนวนคืน</div><div class="stay-val">${nights} คืน</div></div>
+  <div class="stay-box"><div class="stay-label">จำนวนคน</div><div class="stay-val">${b.guests||1} คน</div></div>
+</div>
+
+<div class="section-title">รายละเอียดค่าใช้จ่าย</div>
+<table>
+  <thead><tr><th>รายการ</th><th class="amt">จำนวนเงิน (บาท)</th></tr></thead>
+  <tbody>
+    <tr><td>ค่าที่พัก (${nights} คืน)</td><td class="amt">฿${Number(b.price||0).toLocaleString()}</td></tr>
+    ${b.discount>0?`<tr class="disc sub"><td>  ส่วนลด ${b.discount}%</td><td class="amt">-฿${Number(b.discAmt||0).toLocaleString()}</td></tr>`:''}
+    ${extrasRows}
+    <tr class="total-row"><td>ยอดรวมทั้งหมด</td><td class="amt">฿${Number(total).toLocaleString()}</td></tr>
+  </tbody>
+</table>
+
+${b.deposit>0?`<div class="section-title">การชำระเงิน</div>
+<div class="payment-box">
+  <div class="pay-row"><span class="pay-label">มัดจำ (${b.depositStatus==='paid'?'รับแล้ว ✓':'รอรับ'})</span><span class="pay-val" style="color:${b.depositStatus==='paid'?'#2E7D52':'#B86A10'}">฿${Number(b.deposit).toLocaleString()}</span></div>
+  <div class="pay-row"><span class="pay-label">ยอดคงเหลือที่ต้องชำระ</span><span class="pay-val" style="color:${remain>0?'#B86A10':'#2E7D52'}">฿${Number(remain).toLocaleString()}</span></div>
+</div>`:''}
+
+${b.note?`<div class="note-box"><strong>หมายเหตุ:</strong> ${b.note}</div>`:''}
+
+<div class="footer">
+  ขอบคุณที่ไว้วางใจ Villa Reserve &nbsp;|&nbsp; สร้างเมื่อ ${todayStr}
+</div>
+
+<button class="print-btn" onclick="window.print()">🖨️ พิมพ์ / บันทึก PDF</button>
+</body></html>`;
+
+  const w=window.open('','_blank','width=794,height=1123');
+  if(!w){showToast('❌ กรุณาอนุญาต Popup ก่อน');return;}
+  w.document.write(html);
+  w.document.close();
+  w.onload=()=>{setTimeout(()=>w.print(),800);};
+}
+
+function openTaxForm(id){
+  // pre-fill client info from booking
+  const b=bs.find(x=>x.id===id);
+  if(!b)return;
+  document.getElementById('tax-client').value=b.name||'';
+  document.getElementById('tax-client-phone').value=b.phone||'';
+  // set today's date
+  document.getElementById('tax-docdate').value=new Date().toISOString().split('T')[0];
+  // auto doc number
+  document.getElementById('tax-docno').value='INV-'+String(b.id).padStart(4,'0');
+  // store booking id for genTaxPDF
+  document.getElementById('taxOv').dataset.bid=id;
+  cls('detOv');
+  document.getElementById('taxOv').classList.add('open');
+}
+
+function genTaxPDF(){
+  const id=parseInt(document.getElementById('taxOv').dataset.bid);
+  const b=bs.find(x=>x.id===id);
+  if(!b){showToast('ไม่พบข้อมูลการจอง');return;}
+
+  const nights=nts(b.checkin,b.checkout);
+  const total=b.totalPrice||b.price||0;
+  const ex=b.ex||{};
+
+  const company=document.getElementById('tax-company').value||'บริษัท อมรรัตน์789 เรียลเอสเตท จำกัด';
+  const companyEn=document.getElementById('tax-company-en').value||'';
+  const companyAddr=document.getElementById('tax-company-addr').value||'';
+  const companyTaxId=document.getElementById('tax-company-taxid').value||'';
+  const companyPhone=document.getElementById('tax-company-phone').value||'';
+  const companyEmail=document.getElementById('tax-company-email').value||'';
+  const useVat=document.getElementById('tax-vat').checked;
+  const vatAmt=useVat?Math.round(total*0.07):0;
+  const totalWithVat=total+vatAmt;
+  const remain=Math.max(0,totalWithVat-(b.deposit||0));
+  const client=document.getElementById('tax-client').value||b.name||'';
+  const clientAddr=document.getElementById('tax-client-addr').value||'';
+  const clientTaxId=document.getElementById('tax-client-taxid').value||'';
+  const clientPhone=document.getElementById('tax-client-phone').value||b.phone||'';
+  const payMethod=document.querySelector('input[name="tax-pay"]:checked')?.value||'transfer';
+  const payMethodMap={cash:'เงินสด',transfer:'โอนเงิน',cheque:'เช็ค'};
+  const payMethodName=payMethodMap[payMethod]||'โอนเงิน';
+  const bank=document.getElementById('tax-bank').value||'';
+  const accNo=document.getElementById('tax-accno').value||'';
+  const payDate=document.getElementById('tax-paydate').value||'';
+
+  const docNo=document.getElementById('tax-docno').value||'INV-0001';
+  const docDateRaw=document.getElementById('tax-docdate').value;
+  const docDateObj=docDateRaw?new Date(docDateRaw):new Date();
+  const docDate=`${docDateObj.getDate()}/${docDateObj.getMonth()+1}/${docDateObj.getFullYear()+543}`;
+  const issuer=document.getElementById('tax-issuer').value||'';
+  const docTypeVal=document.getElementById('tax-doctype').value;
+  const docTypeMap={quotation:'ใบเสนอราคา',invoice:'ใบแจ้งหนี้',receipt:'ใบเสร็จรับเงิน',tax:'ใบกำกับภาษี'};
+  const docTypeName=docTypeMap[docTypeVal]||'ใบเสนอราคา';
+
+  // build items
+  let itemsRows='';
+  let itemNum=1;
+  const addRow=(desc,unit,qty,price)=>{
+    const amt=qty*price;
+    itemsRows+=`<tr>
+      <td class="cn">${itemNum++}</td>
+      <td>${desc}</td>
+      <td class="cn">${unit}</td>
+      <td class="cr">${Number(qty).toLocaleString()}</td>
+      <td class="cr">฿${Number(price).toLocaleString()}</td>
+      <td class="cr">฿${Number(amt).toLocaleString()}</td>
+    </tr>`;
+  };
+  addRow(`ค่าที่พัก ${PROPS[b.prop]} (${fmtTH(b.checkin)} – ${fmtTH(b.checkout)})`, 'คืน', nights, Math.round((b.price-(b.discAmt||0))/nights));
+  if(ex.insurance) addRow('ค่าประกันบ้าน','ครั้ง',1,5000);
+  if(ex.buffet>0) addRow('ค่าอาหารบุฟเฟ่','ครั้ง',1,ex.buffet);
+  if(ex.music>0) addRow('ค่าดนตรี','ครั้ง',1,ex.music);
+  if(ex.jetski>0) addRow('ค่าเจ็ทสกี','ชม.',ex.jetski,2500);
+  if(ex.banana>0) addRow('ค่าบานาน่าโบ๊ท','ชม.',ex.banana,3600);
+  if(ex.combo>0) addRow('ค่าเจ็ทสกี+บานาน่าโบ๊ท','ชม.',ex.combo,2500);
+  if(ex.mookata>0) addRow('Set หมูกระทะ','Set',ex.mookata,1990);
+
+  const stMap={confirmed:'ยืนยันแล้ว',pending:'รอดำเนิน',cancelled:'ยกเลิก'};
+  const stColor={confirmed:'#2E7D52',pending:'#B86A10',cancelled:'#AA2828'};
+
+  const html=`<!DOCTYPE html><html lang="th"><head><meta charset="UTF-8">
+<title>${docTypeName} ${docNo}</title>
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Prompt',sans-serif;color:#1A1410;background:#fff;}
+@page{size:A4;margin:12mm 15mm;}
+@media print{.no-print{display:none;} body{padding:0;}}
+.page{max-width:210mm;margin:0 auto;padding:10mm 14mm;min-height:297mm;display:flex;flex-direction:column;}
+
+/* HEADER */
+.doc-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px;padding-bottom:12px;border-bottom:2px solid #B8922A;}
+.company-info{}
+.co-name{font-size:18px;font-weight:600;color:#B8922A;margin-bottom:2px;}
+.co-en{font-size:10px;color:#B8922A;margin-bottom:3px;font-weight:500;}
+.co-detail{font-size:9px;color:#5A4F3E;line-height:1.6;}
+.doc-title-box{text-align:right;}
+.doc-title{font-size:20px;font-weight:600;color:#1A1410;margin-bottom:6px;}
+.doc-meta{font-size:9px;color:#5A4F3E;line-height:1.8;}
+.doc-meta span{font-weight:500;color:#1A1410;}
+.status-badge{display:inline-block;padding:3px 10px;border-radius:10px;font-size:9px;font-weight:500;color:white;background:${stColor[b.status]||'#5A4F3E'};margin-top:4px;}
+
+/* PARTIES */
+.parties{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px;}
+.party-box{border:1px solid #E2DAC8;border-radius:6px;padding:10px 12px;background:#FAFAF8;}
+.party-label{font-size:8px;color:#9A8E7E;letter-spacing:.08em;text-transform:uppercase;margin-bottom:5px;font-weight:500;}
+.party-name{font-size:12px;font-weight:600;color:#1A1410;margin-bottom:3px;}
+.party-detail{font-size:9px;color:#5A4F3E;line-height:1.7;}
+
+/* STAY INFO */
+.stay-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px;}
+.stay-cell{background:#F5F2EC;border:1px solid #E2DAC8;border-radius:6px;padding:8px 10px;text-align:center;}
+.stay-lbl{font-size:8px;color:#9A8E7E;margin-bottom:3px;}
+.stay-val{font-size:11px;font-weight:600;}
+
+/* TABLE */
+.section-label{font-size:10px;font-weight:600;color:#5A4F3E;margin-bottom:6px;letter-spacing:.04em;}
+table{width:100%;border-collapse:collapse;font-size:10px;margin-bottom:12px;}
+thead tr{background:#E8E0D0;}
+th{padding:6px 8px;font-weight:500;color:#5A4F3E;font-size:9px;border:1px solid #D4C9B0;}
+td{padding:6px 8px;border:1px solid #E8E2D5;vertical-align:top;}
+.cn{text-align:center;}
+.cr{text-align:right;}
+tbody tr:nth-child(even){background:#FAFAF8;}
+
+/* TOTALS */
+.totals-wrap{display:flex;justify-content:flex-end;margin-bottom:14px;}
+.totals-table{width:50%;border-collapse:collapse;font-size:10px;}
+.totals-table td{padding:5px 10px;border-bottom:1px dashed #E2DAC8;}
+.totals-table td:last-child{text-align:right;font-weight:500;}
+.totals-table tr.grand td{background:#F0EAD8;font-weight:600;font-size:12px;border-top:1.5px solid #B8922A;border-bottom:1.5px solid #B8922A;}
+.totals-table tr.grand td:last-child{color:#B8922A;font-size:14px;}
+.totals-table tr.paid td:last-child{color:#2E7D52;}
+.totals-table tr.owe td:last-child{color:${remain>0?'#B86A10':'#2E7D52'};}
+
+/* NOTE */
+.note-box{background:#FFF9EE;border:1px solid #E2DAC8;border-radius:6px;padding:8px 12px;font-size:9px;color:#5A4F3E;margin-bottom:14px;}
+
+/* SIGNATURES */
+.pay-info-box{border:1px solid #E2DAC8;border-radius:6px;padding:10px 14px;margin-bottom:14px;background:#FAFAF8;}
+.pay-info-title{font-size:10px;font-weight:600;color:#5A4F3E;margin-bottom:8px;}
+.pay-method-row{display:flex;gap:16px;margin-bottom:8px;}
+.pay-check{display:flex;align-items:center;gap:5px;font-size:10px;color:#1A1410;}
+.pay-check-box{width:11px;height:11px;border:1.5px solid #5A4F3E;border-radius:2px;display:inline-flex;align-items:center;justify-content:center;font-size:9px;}
+.pay-detail{font-size:9px;color:#5A4F3E;line-height:1.8;}
+.sig-section{margin-top:auto;padding-top:16px;border-top:1px solid #E2DAC8;}
+.sig-title{font-size:10px;font-weight:600;color:#5A4F3E;margin-bottom:14px;}
+.sig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.sig-box{text-align:center;}
+.sig-line{border-bottom:1px solid #1A1410;margin-bottom:6px;height:36px;}
+.sig-label{font-size:8px;color:#9A8E7E;}
+.sig-name{font-size:9px;color:#1A1410;margin-top:3px;min-height:13px;}
+
+/* FOOTER */
+.doc-footer{margin-top:12px;padding-top:8px;border-top:1px dashed #E2DAC8;text-align:center;font-size:8px;color:#9A8E7E;}
+
+.print-btn{position:fixed;bottom:20px;right:20px;background:#B8922A;color:white;border:none;padding:12px 24px;border-radius:10px;font-family:'Prompt',sans-serif;font-size:14px;cursor:pointer;box-shadow:0 4px 16px rgba(184,146,42,.4);z-index:999;}
+</style></head><body>
+<div class="page">
+
+<div class="doc-header">
+  <div class="company-info">
+    <div class="co-name">${company}</div>
+    ${companyEn?`<div class="co-en">${companyEn}</div>`:''}
+    <div class="co-detail">
+      ${companyAddr?companyAddr+'<br>':''}
+      ${companyTaxId?'เลขประจำตัวผู้เสียภาษี: '+companyTaxId+'<br>':''}
+      ${companyPhone?'Tel: '+companyPhone+'<br>':''}
+      ${companyEmail?'Email: '+companyEmail:''}
+    </div>
+  </div>
+  <div class="doc-title-box">
+    <div class="doc-title">${docTypeName}</div>
+    <div class="doc-meta">
+      เลขที่: <span>${docNo}</span><br>
+      วันที่: <span>${docDate}</span><br>
+      ${issuer?'ผู้ออกบิล: <span>'+issuer+'</span>':''}
+    </div>
+    <div><span class="status-badge">${stMap[b.status]||b.status}</span></div>
+  </div>
+</div>
+
+<div class="parties">
+  <div class="party-box">
+    <div class="party-label">ผู้ออกเอกสาร</div>
+    <div class="party-name">${company}</div>
+    ${companyEn?`<div style="font-size:9px;color:#9A8E7E;">${companyEn}</div>`:''}
+    <div class="party-detail">
+      ${companyAddr?companyAddr+'<br>':''}
+      ${companyTaxId?'เลขประจำตัวผู้เสียภาษี: '+companyTaxId+'<br>':''}
+      ${companyPhone?'Tel: '+companyPhone+'<br>':''}
+      ${companyEmail?'Email: '+companyEmail:''}
+    </div>
+  </div>
+  <div class="party-box">
+    <div class="party-label">ลูกค้า / ผู้รับบริการ</div>
+    <div class="party-name">${client}</div>
+    <div class="party-detail">
+      ${clientAddr?clientAddr+'<br>':''}
+      ${clientTaxId?'Tax ID: '+clientTaxId+'<br>':''}
+      ${clientPhone?'โทร: '+clientPhone:''}
+    </div>
+  </div>
+</div>
+
+<div class="stay-bar">
+  <div class="stay-cell"><div class="stay-lbl">เช็คอิน</div><div class="stay-val">${fmtTH(b.checkin)}</div><div style="font-size:8px;color:#9A8E7E;margin-top:2px;">14.00 น.</div></div>
+  <div class="stay-cell"><div class="stay-lbl">เช็คเอาท์</div><div class="stay-val">${fmtTH(b.checkout)}</div><div style="font-size:8px;color:#9A8E7E;margin-top:2px;">11.00 น.</div></div>
+  <div class="stay-cell"><div class="stay-lbl">จำนวนคืน</div><div class="stay-val">${nights} คืน</div></div>
+  <div class="stay-cell"><div class="stay-lbl">จำนวนคน</div><div class="stay-val">${b.guests||1} คน</div></div>
+</div>
+
+<div class="section-label">รายการสินค้า / บริการ</div>
+<table>
+  <thead><tr>
+    <th class="cn" style="width:5%">ที่</th>
+    <th style="width:42%">รายการ</th>
+    <th class="cn" style="width:8%">หน่วย</th>
+    <th class="cr" style="width:10%">จำนวน</th>
+    <th class="cr" style="width:15%">ราคา/หน่วย</th>
+    <th class="cr" style="width:15%">จำนวนเงิน</th>
+  </tr></thead>
+  <tbody>${itemsRows}</tbody>
+</table>
+
+<div class="totals-wrap">
+  <table class="totals-table">
+    <tr><td>รวมเป็นเงิน${useVat?' (ก่อน VAT)':''}</td><td>฿${Number(total).toLocaleString()}</td></tr>
+    ${b.discount>0?`<tr><td style="color:#2E7D52">ส่วนลด ${b.discount}%</td><td style="color:#2E7D52">-฿${Number(b.discAmt||0).toLocaleString()}</td></tr>`:''}
+    ${useVat?`<tr><td>ภาษีมูลค่าเพิ่ม 7%</td><td>฿${Number(vatAmt).toLocaleString()}</td></tr>`:''}
+    <tr class="grand"><td>ยอดรวมทั้งหมด${useVat?' (รวม VAT)':''}</td><td>฿${Number(totalWithVat).toLocaleString()}</td></tr>
+    ${b.deposit>0?`<tr class="paid"><td>รับมัดจำแล้ว${b.depositStatus==='paid'?' ✓':' (รอรับ)'}</td><td>฿${Number(b.deposit).toLocaleString()}</td></tr>
+    <tr class="owe"><td>ยอดคงเหลือที่ต้องชำระ</td><td>฿${Number(Math.max(0,totalWithVat-b.deposit)).toLocaleString()}</td></tr>`:''}
+  </table>
+</div>
+
+${b.note?`<div class="note-box"><strong>หมายเหตุ:</strong> ${b.note}</div>`:''}
+
+<div class="pay-info-box">
+  <div class="pay-info-title">ชำระโดย / Payment Method</div>
+  <div class="pay-method-row">
+    <div class="pay-check"><div class="pay-check-box">${payMethod==='cash'?'✓':''}</div> เงินสด</div>
+    <div class="pay-check"><div class="pay-check-box">${payMethod==='transfer'?'✓':''}</div> โอนเงิน</div>
+    <div class="pay-check"><div class="pay-check-box">${payMethod==='cheque'?'✓':''}</div> เช็ค</div>
+  </div>
+  <div class="pay-detail">
+    ${bank?`ธนาคาร: <strong>${bank}</strong><br>`:''}
+    ${accNo?`เลขที่บัญชี / เช็ค: <strong>${accNo}</strong>`:''}
+    ${payDate?` &nbsp;ลงวันที่: <strong>${payDate}</strong>`:''}
+  </div>
+</div>
+
+<div class="sig-section">
+  <div class="sig-title">ลายมือชื่อ / Signatures</div>
+  <div class="sig-grid">
+    <div class="sig-box">
+      <div class="sig-line"></div>
+      <div class="sig-label">ผู้อนุมัติ / Approved by</div>
+      <div class="sig-name">&nbsp;</div>
+      <div class="sig-label">วันที่ _____ / _____ / _____</div>
+    </div>
+    <div class="sig-box">
+      <div class="sig-line"></div>
+      <div class="sig-label">ผู้รับบริการ / Customer</div>
+      <div class="sig-name">${client}</div>
+      <div class="sig-label">วันที่ _____ / _____ / _____</div>
+    </div>
+    <div class="sig-box">
+      <div class="sig-line"></div>
+      <div class="sig-label">พนักงานออกบิล / Issued by</div>
+      <div class="sig-name">${issuer||'&nbsp;'}</div>
+      <div class="sig-label">วันที่ _____ / _____ / _____</div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-footer">
+  ${company} &nbsp;|&nbsp; เอกสารนี้ออกโดยระบบ Villa Reserve &nbsp;|&nbsp; ${docDate}
+</div>
+
+</div>
+<button class="print-btn no-print" onclick="window.print()">🖨️ พิมพ์ / บันทึก PDF</button>
+</body></html>`;
+
+  const w=window.open('','_blank','width=900,height=1100');
+  if(!w){showToast('❌ กรุณาอนุญาต Popup ก่อน');return;}
+  w.document.write(html);
+  w.document.close();
+  cls('taxOv');
+  showToast('📄 เปิดเอกสารแล้ว กด พิมพ์ เพื่อบันทึก PDF');
+}
+
 function toggleDep(id,status){
   const b=bs.find(x=>x.id===id);
   if(b){b.depositStatus=status;saveData();openDet(id);renderList();renderTodayNotif();}
