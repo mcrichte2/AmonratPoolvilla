@@ -720,6 +720,7 @@ if(sessionStorage.getItem('vr_auth')==='1'){
 }
 
 const MONTHS=['มกราคม','กุมภาพันธ์','มีนาคม','เมษายน','พฤษภาคม','มิถุนายน','กรกฎาคม','สิงหาคม','กันยายน','ตุลาคม','พฤศจิกายน','ธันวาคม'];
+const MONTHS_S=['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
 const DAYS=['อา','จ','อ','พ','พฤ','ศ','ส'];
 const PROPS=['ปณิตาพูลวิลล่า','พูลวิลล่าบ้านสวนกิ๊บ'];
 const pImgs=[null,null];
@@ -737,7 +738,7 @@ let nid=5;
 function p2(n){return String(n).padStart(2,'0');}
 function tstr(){const d=new Date();return`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;}
 function nts(a,b){return Math.max(0,Math.round((new Date(b)-new Date(a))/86400000));}
-function fmtTH(s){if(!s)return'-';const d=new Date(s+'T00:00:00');return`${d.getDate()} ${MONTHS[d.getMonth()].slice(0,3)} ${d.getFullYear()+543}`;}
+function fmtTH(s){if(!s)return'-';const d=new Date(s+'T00:00:00');return`${d.getDate()} ${MONTHS_S[d.getMonth()]} ${d.getFullYear()+543}`;}
 function slbl(s){return{confirmed:'ยืนยันแล้ว',pending:'รอดำเนิน',cancelled:'ยกเลิก'}[s]||s;}
 
 let pendingSlip=null;
