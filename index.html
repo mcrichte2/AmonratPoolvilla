@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Villa Reserve</title>
 <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
 <style>
 :root {
   --gold: #B8922A;
@@ -1193,14 +1193,19 @@ ${b.note?`<div class="note-box"><strong>หมายเหตุ:</strong> ${b.n
   ขอบคุณที่ไว้วางใจ Villa Reserve &nbsp;|&nbsp; สร้างเมื่อ ${todayStr}
 </div>
 
-<button class="print-btn" onclick="window.print()">🖨️ พิมพ์ / บันทึก PDF</button>
+<div class="no-print" style="position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #E2DAC8;padding:12px 16px;z-index:999;">
+  <button onclick="window.print()" style="width:100%;background:#B8922A;color:white;border:none;padding:14px;border-radius:10px;font-family:'Prompt',sans-serif;font-size:15px;font-weight:500;cursor:pointer;">🖨️ พิมพ์ / บันทึก PDF</button>
+  <div style="text-align:center;font-size:10px;color:#9A8E7E;margin-top:6px;">
+    📱 iPhone: กด <strong>แชร์</strong> → <strong>พิมพ์</strong> → <strong>กดค้างที่ภาพตัวอย่าง</strong> → บันทึก PDF<br>
+    🤖 Android: กด <strong>เมนู</strong> → <strong>พิมพ์</strong> → เลือก <strong>บันทึกเป็น PDF</strong>
+  </div>
+</div>
+<div class="no-print" style="height:90px;"></div>
 </body></html>`;
 
-  const w=window.open('','_blank','width=794,height=1123');
-  if(!w){showToast('❌ กรุณาอนุญาต Popup ก่อน');return;}
-  w.document.write(html);
-  w.document.close();
-  w.onload=()=>{setTimeout(()=>w.print(),800);};
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  window.open(url,'_blank');
 }
 
 function openTaxForm(id){
@@ -1485,15 +1490,21 @@ ${b.note?`<div class="note-box"><strong>หมายเหตุ:</strong> ${b.n
 </div>
 
 </div>
-<button class="print-btn no-print" onclick="window.print()">🖨️ พิมพ์ / บันทึก PDF</button>
+<div class="no-print" style="position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid #E2DAC8;padding:12px 16px;z-index:999;">
+  <button onclick="window.print()" style="width:100%;background:#B8922A;color:white;border:none;padding:14px;border-radius:10px;font-family:'Prompt',sans-serif;font-size:15px;font-weight:500;cursor:pointer;">🖨️ พิมพ์ / บันทึก PDF</button>
+  <div style="text-align:center;font-size:10px;color:#9A8E7E;margin-top:6px;">
+    📱 iPhone: กด <strong>แชร์</strong> → <strong>พิมพ์</strong> → <strong>กดค้างที่ภาพตัวอย่าง</strong> → บันทึก PDF<br>
+    🤖 Android: กด <strong>เมนู</strong> → <strong>พิมพ์</strong> → เลือก <strong>บันทึกเป็น PDF</strong>
+  </div>
+</div>
+<div class="no-print" style="height:90px;"></div>
 </body></html>`;
 
-  const w=window.open('','_blank','width=900,height=1100');
-  if(!w){showToast('❌ กรุณาอนุญาต Popup ก่อน');return;}
-  w.document.write(html);
-  w.document.close();
+  const blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  window.open(url,'_blank');
   cls('taxOv');
-  showToast('📄 เปิดเอกสารแล้ว กด พิมพ์ เพื่อบันทึก PDF');
+  showToast('📄 เปิดเอกสารแล้ว → กด แชร์ แล้วเลือก บันทึก PDF');
 }
 
 function toggleDep(id,status){
