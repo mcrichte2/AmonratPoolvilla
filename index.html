@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>Villa Reserve</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Sarabun:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
   --gold: #B8922A;
@@ -26,14 +26,14 @@
   --r: 12px;
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;font-weight:400;max-width:430px;margin:0 auto;min-height:100vh;}
+body{background:var(--bg);color:var(--text);font-family:'Prompt',sans-serif;font-weight:400;max-width:430px;margin:0 auto;min-height:100vh;}
 
 .topbar{background:var(--white);border-bottom:1px solid var(--border);padding:44px 20px 12px;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.05);}
 .topbar-row{display:flex;justify-content:space-between;align-items:center;}
 .brand-logo{display:flex;align-items:center;gap:10px;}
 .brand-icon{width:34px;height:34px;border-radius:50%;background:var(--gold-bg);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
 .brand-text{}
-.brand-name{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--gold);letter-spacing:.05em;line-height:1.1;}
+.brand-name{font-family:'Prompt',sans-serif;font-size:22px;font-weight:600;color:var(--gold);letter-spacing:.05em;line-height:1.1;}
 .brand-sub{font-size:10px;color:var(--text3);margin-top:2px;letter-spacing:.1em;text-transform:uppercase;}
 .date-chip{background:var(--gold-bg);border:1px solid var(--border2);border-radius:20px;padding:6px 14px;font-size:11px;color:var(--gold);letter-spacing:.04em;white-space:nowrap;}
 .topbar-divider{display:none;}
@@ -45,7 +45,7 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
 .home-screen{position:fixed;inset:0;z-index:300;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 24px;max-width:430px;margin:0 auto;}
 .home-logo{text-align:center;margin-bottom:48px;}
 .home-logo-icon{width:72px;height:72px;border-radius:50%;background:var(--white);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 16px;box-shadow:0 4px 20px rgba(184,146,42,.15);}
-.home-title{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:600;color:var(--gold);letter-spacing:.05em;}
+.home-title{font-family:'Prompt',sans-serif;font-size:30px;font-weight:600;color:var(--gold);letter-spacing:.05em;}
 .home-sub{font-size:12px;color:var(--text3);margin-top:4px;letter-spacing:.12em;text-transform:uppercase;}
 .home-divider{width:48px;height:1.5px;background:linear-gradient(90deg,transparent,var(--gold2),transparent);margin:20px auto 0;}
 .home-label{font-size:13px;color:var(--text3);margin-bottom:20px;text-align:center;letter-spacing:.04em;}
@@ -55,7 +55,7 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
 .home-card-img{width:56px;height:56px;border-radius:12px;background:var(--bg);border:1px solid var(--border);overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;}
 .home-card-img img{width:100%;height:100%;object-fit:cover;}
 .home-card-body{flex:1;}
-.home-card-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--text);line-height:1.2;}
+.home-card-name{font-family:'Prompt',sans-serif;font-size:18px;font-weight:600;color:var(--text);line-height:1.2;}
 .home-card-meta{font-size:11px;color:var(--text3);margin-top:4px;}
 .home-card-arrow{font-size:18px;color:var(--gold);opacity:.6;}
 .home-back{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text3);cursor:pointer;padding:6px 0;margin-bottom:2px;}
@@ -80,15 +80,15 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
 .prop-img-overlay span{color:white;font-size:12px;background:rgba(0,0,0,.45);padding:5px 14px;border-radius:20px;}
 .prop-img-input{display:none;}
 .prop-info{padding:12px 14px;display:flex;justify-content:space-between;align-items:center;}
-.prop-title{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:600;color:var(--text);}
+.prop-title{font-family:'Prompt',sans-serif;font-size:16px;font-weight:600;color:var(--text);}
 .prop-stats{display:flex;gap:14px;}
 .ps{text-align:center;}
-.ps-num{font-family:'Cormorant Garamond',serif;font-size:22px;}
+.ps-num{font-family:'Prompt',sans-serif;font-size:22px;}
 .ps-lbl{font-size:9px;color:var(--text3);letter-spacing:.05em;}
 
 .cal-card{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:18px 16px 14px;margin-bottom:14px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
 .cal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px;}
-.cal-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--text);letter-spacing:.02em;}
+.cal-title{font-family:'Prompt',sans-serif;font-size:22px;font-weight:600;color:var(--text);letter-spacing:.02em;}
 .cal-title span{color:var(--gold);}
 .cal-nav{display:flex;gap:8px;}
 .cal-btn{width:36px;height:36px;border-radius:50%;background:var(--bg);border:1px solid var(--border);color:var(--gold);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.15s;}
@@ -129,7 +129,7 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
 .bcard:active{transform:scale(.99);}
 .bcard:hover{border-color:var(--gold2);}
 .bcard-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;}
-.bcard-name{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--text);}
+.bcard-name{font-family:'Prompt',sans-serif;font-size:17px;font-weight:600;color:var(--text);}
 .bcard-phone{font-size:11px;color:var(--text3);margin-top:1px;}
 .sbadge{font-size:10px;padding:3px 9px;border-radius:20px;font-weight:500;white-space:nowrap;}
 .s-confirmed{background:var(--green-bg);color:var(--green);}
@@ -139,7 +139,7 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
 .bcard-div{height:1px;background:var(--border);margin:7px 0;}
 .bcard-foot{display:flex;justify-content:space-between;align-items:center;}
 .bcard-meta{font-size:11px;color:var(--text3);}
-.bcard-price{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--gold);}
+.bcard-price{font-family:'Prompt',sans-serif;font-size:17px;color:var(--gold);}
 
 .fab{position:fixed;bottom:78px;right:18px;width:50px;height:50px;border-radius:50%;background:var(--gold);color:white;font-size:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 18px rgba(184,146,42,.45);z-index:200;border:none;transition:.2s;}
 .fab:active{transform:scale(.93);}
@@ -155,15 +155,15 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
 .modal{background:var(--white);border-radius:20px 20px 0 0;width:100%;max-width:430px;padding:18px 18px 36px;animation:up .3s cubic-bezier(.32,.72,0,1);max-height:92vh;overflow-y:auto;}
 @keyframes up{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .handle{width:34px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 16px;}
-.mtitle{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+.mtitle{font-family:'Prompt',sans-serif;font-size:19px;font-weight:600;display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
 .mclose{width:26px;height:26px;border-radius:50%;background:var(--bg);border:1px solid var(--border);color:var(--text3);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .fg{margin-bottom:12px;}
 .flabel{font-size:11px;color:var(--text3);margin-bottom:5px;display:block;}
-.finput,.fselect{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--text);font-family:'Sarabun',sans-serif;font-size:14px;outline:none;transition:.2s;}
+.finput,.fselect{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 13px;color:var(--text);font-family:'Prompt',sans-serif;font-size:14px;outline:none;transition:.2s;}
 .finput:focus,.fselect:focus{border-color:var(--gold2);background:white;}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-.btn-p{width:100%;padding:13px;border-radius:10px;background:var(--gold);color:white;font-family:'Sarabun',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:none;margin-top:6px;letter-spacing:.05em;}
-.btn-d{width:100%;padding:11px;border-radius:10px;background:transparent;border:1px solid rgba(170,40,40,.25);color:var(--red);font-family:'Sarabun',sans-serif;font-size:13px;cursor:pointer;margin-top:8px;}
+.btn-p{width:100%;padding:13px;border-radius:10px;background:var(--gold);color:white;font-family:'Prompt',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:none;margin-top:6px;letter-spacing:.05em;}
+.btn-d{width:100%;padding:11px;border-radius:10px;background:transparent;border:1px solid rgba(170,40,40,.25);color:var(--red);font-family:'Prompt',sans-serif;font-size:13px;cursor:pointer;margin-top:8px;}
 .dgrid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px;}
 .ditem{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:10px 12px;}
 .dkey{font-size:10px;color:var(--text3);margin-bottom:2px;}
@@ -191,8 +191,8 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
 .price-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed var(--border);}
 .price-row:last-child{border-bottom:none;padding-bottom:0;}
 .price-row-lbl{font-size:12px;color:var(--text3);}
-.price-row-val{font-family:'Cormorant Garamond',serif;font-size:16px;}
-.price-total-val{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);}
+.price-row-val{font-family:'Prompt',sans-serif;font-size:16px;}
+.price-total-val{font-family:'Prompt',sans-serif;font-size:22px;color:var(--gold);}
 /* slip viewer overlay */
 .slip-viewer{display:none;position:fixed;inset:0;z-index:900;background:rgba(0,0,0,.85);align-items:center;justify-content:center;}
 .slip-viewer.open{display:flex;}
@@ -202,11 +202,11 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
 .confirm-overlay.open{display:flex;}
 .confirm-box{background:var(--white);border-radius:16px;padding:24px 20px;width:100%;max-width:320px;text-align:center;}
 .confirm-icon{font-size:32px;margin-bottom:10px;}
-.confirm-title{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;margin-bottom:6px;}
+.confirm-title{font-family:'Prompt',sans-serif;font-size:19px;font-weight:600;margin-bottom:6px;}
 .confirm-msg{font-size:13px;color:var(--text3);margin-bottom:20px;line-height:1.5;}
 .confirm-btns{display:flex;gap:10px;}
-.confirm-cancel{flex:1;padding:12px;border-radius:10px;background:var(--bg);border:1px solid var(--border);color:var(--text2);font-family:'Sarabun',sans-serif;font-size:13px;cursor:pointer;}
-.confirm-ok{flex:1;padding:12px;border-radius:10px;background:var(--red);border:none;color:white;font-family:'Sarabun',sans-serif;font-size:13px;cursor:pointer;font-weight:500;}
+.confirm-cancel{flex:1;padding:12px;border-radius:10px;background:var(--bg);border:1px solid var(--border);color:var(--text2);font-family:'Prompt',sans-serif;font-size:13px;cursor:pointer;}
+.confirm-ok{flex:1;padding:12px;border-radius:10px;background:var(--red);border:none;color:white;font-family:'Prompt',sans-serif;font-size:13px;cursor:pointer;font-weight:500;}
 /* EXTRAS */
 .extras-section{background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px;}
 .extras-title{font-size:12px;font-weight:500;color:var(--text2);margin-bottom:12px;display:flex;align-items:center;gap:6px;}
@@ -215,9 +215,9 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
 .extra-check{width:18px;height:18px;accent-color:var(--gold);cursor:pointer;flex-shrink:0;}
 .extra-label{flex:1;font-size:13px;color:var(--text);}
 .extra-label small{display:block;font-size:10px;color:var(--text3);}
-.extra-qty{width:60px;padding:6px 8px;border:1px solid var(--border);border-radius:7px;background:var(--white);font-size:13px;text-align:center;outline:none;font-family:'Sarabun',sans-serif;}
+.extra-qty{width:60px;padding:6px 8px;border:1px solid var(--border);border-radius:7px;background:var(--white);font-size:13px;text-align:center;outline:none;font-family:'Prompt',sans-serif;}
 .extra-qty:focus{border-color:var(--gold2);}
-.extra-amount{font-family:'Cormorant Garamond',serif;font-size:14px;color:var(--gold);min-width:64px;text-align:right;}
+.extra-amount{font-family:'Prompt',sans-serif;font-size:14px;color:var(--gold);min-width:64px;text-align:right;}
 .summary-box{background:var(--white);border:1.5px solid var(--border2);border-radius:12px;padding:14px;margin-bottom:12px;}
 .sum-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px dashed var(--border);}
 .sum-row:last-child{border-bottom:none;padding-bottom:0;}
@@ -225,26 +225,27 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
 .sum-val{font-size:14px;color:var(--text);}
 .sum-total-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0 0;}
 .sum-total-lbl{font-size:13px;font-weight:500;color:var(--text);}
-.sum-total-val{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold);}
+.sum-total-val{font-family:'Prompt',sans-serif;font-size:22px;color:var(--gold);}
 .sum-remain-row{display:flex;justify-content:space-between;align-items:center;padding:8px 14px;background:rgba(184,146,42,.06);border-radius:8px;margin-top:8px;border:1px solid var(--border2);}
 .sum-remain-lbl{font-size:12px;color:var(--text2);}
-.sum-remain-val{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--green);font-weight:600;}
-.disc-btn{flex:1;padding:8px 4px;border-radius:8px;background:var(--bg);border:1.5px solid var(--border);color:var(--text2);font-family:'Sarabun',sans-serif;font-size:13px;cursor:pointer;transition:all .15s;}
+.sum-remain-val{font-family:'Prompt',sans-serif;font-size:20px;color:var(--green);font-weight:600;}
+.disc-btn{flex:1;padding:8px 4px;border-radius:8px;background:var(--bg);border:1.5px solid var(--border);color:var(--text2);font-family:'Prompt',sans-serif;font-size:13px;cursor:pointer;transition:all .15s;}
 .disc-btn.active{background:var(--gold-bg);border-color:var(--gold2);color:var(--gold);font-weight:600;}
 .sum-row.discount{color:var(--green);}
 
 /* ===== LOGIN ===== */
-.login-screen{position:fixed;inset:0;z-index:500;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 28px;max-width:430px;margin:0 auto;}
+.login-screen{position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 28px;}
 .login-logo{text-align:center;margin-bottom:36px;}
 .login-logo-icon{width:72px;height:72px;border-radius:50%;background:var(--white);border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:32px;margin:0 auto 14px;box-shadow:0 4px 20px rgba(184,146,42,.15);}
-.login-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;color:var(--gold);}
+.login-title{font-family:'Prompt',sans-serif;font-size:28px;font-weight:600;color:var(--gold);}
 .login-sub{font-size:11px;color:var(--text3);margin-top:4px;letter-spacing:.1em;text-transform:uppercase;}
+.login-form-wrap{width:100%;max-width:380px;}
 .login-field{margin-bottom:14px;}
 .login-label{font-size:12px;color:var(--text3);margin-bottom:5px;display:block;letter-spacing:.04em;}
-.login-input{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:12px;background:var(--white);font-family:'Sarabun',sans-serif;font-size:14px;outline:none;transition:border .2s;-webkit-appearance:none;}
+.login-input{width:100%;padding:13px 14px;border:1.5px solid var(--border);border-radius:12px;background:var(--white);font-family:'Prompt',sans-serif;font-size:16px;outline:none;transition:border .2s;-webkit-appearance:none;color:var(--text);}
 .login-input:focus{border-color:var(--gold2);}
-.login-btn{width:100%;padding:15px;border-radius:12px;background:var(--gold);border:none;color:white;font-family:'Sarabun',sans-serif;font-size:15px;font-weight:500;cursor:pointer;margin-top:6px;letter-spacing:.04em;}
-.login-error{font-size:12px;color:var(--red);text-align:center;margin-top:10px;min-height:18px;}
+.login-btn{width:100%;padding:15px;border-radius:12px;background:var(--gold);border:none;color:white;font-family:'Prompt',sans-serif;font-size:16px;font-weight:500;cursor:pointer;margin-top:6px;-webkit-appearance:none;appearance:none;}
+.login-error{font-size:13px;color:var(--red);text-align:center;margin-top:12px;min-height:20px;font-weight:500;}
 /* ===== NOTIFY ===== */
 .notif-box{background:var(--white);border:1.5px solid var(--border2);border-radius:14px;padding:12px 14px;margin-bottom:10px;}
 .notif-header{display:flex;align-items:center;gap:7px;margin-bottom:8px;}
@@ -255,29 +256,29 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
 .notif-item:last-child{margin-bottom:0;}
 /* ===== SEARCH ===== */
 .search-bar{display:flex;align-items:center;gap:8px;background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:0 12px;margin-bottom:12px;}
-.search-bar input{flex:1;padding:11px 0;border:none;outline:none;font-family:'Sarabun',sans-serif;font-size:13px;background:transparent;}
+.search-bar input{flex:1;padding:11px 0;border:none;outline:none;font-family:'Prompt',sans-serif;font-size:13px;background:transparent;}
 .search-icon{font-size:15px;color:var(--text3);}
 /* ===== REVENUE ===== */
 .rev-month-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-.rev-month-title{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--text);}
+.rev-month-title{font-family:'Prompt',sans-serif;font-size:20px;font-weight:600;color:var(--text);}
 .rev-nav-btn{width:34px;height:34px;border-radius:50%;background:var(--white);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;color:var(--text2);}
 .rev-cards{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
 .rev-card{background:var(--white);border:1.5px solid var(--border);border-radius:14px;padding:14px;}
 .rev-card.full{grid-column:1/-1;}
 .rev-card-lbl{font-size:11px;color:var(--text3);margin-bottom:4px;}
-.rev-card-val{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;}
+.rev-card-val{font-family:'Prompt',sans-serif;font-size:22px;font-weight:600;}
 .rev-prop-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px dashed var(--border);}
 .rev-prop-row:last-child{border:none;padding-bottom:0;}
 .rev-prop-name{font-size:12px;color:var(--text2);}
-.rev-prop-val{font-family:'Cormorant Garamond',serif;font-size:16px;color:var(--gold);}
+.rev-prop-val{font-family:'Prompt',sans-serif;font-size:16px;color:var(--gold);}
 .rev-list-item{display:flex;justify-content:space-between;align-items:center;padding:9px 10px;background:var(--bg);border-radius:8px;margin-bottom:6px;cursor:pointer;}
 .rev-list-left{flex:1;}
 .rev-list-name{font-size:12px;color:var(--text);font-weight:500;}
 .rev-list-meta{font-size:11px;color:var(--text3);margin-top:1px;}
-.rev-list-price{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--gold);}
+.rev-list-price{font-family:'Prompt',sans-serif;font-size:15px;color:var(--gold);}
 /* ===== DEPOSIT QUICK TOGGLE ===== */
 .dep-toggle{display:flex;gap:6px;margin-top:10px;}
-.dep-toggle-btn{flex:1;padding:9px;border-radius:9px;font-family:'Sarabun',sans-serif;font-size:12px;cursor:pointer;border:1.5px solid var(--border);background:var(--bg);color:var(--text2);transition:all .15s;font-weight:500;}
+.dep-toggle-btn{flex:1;padding:9px;border-radius:9px;font-family:'Prompt',sans-serif;font-size:12px;cursor:pointer;border:1.5px solid var(--border);background:var(--bg);color:var(--text2);transition:all .15s;font-weight:500;}
 .dep-toggle-btn.active-paid{border-color:var(--green);background:var(--green-bg);color:var(--green);}
 .dep-toggle-btn.active-unpaid{border-color:var(--orange);background:var(--orange-bg);color:var(--orange);}
 </style>
@@ -291,16 +292,18 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
     <div class="login-title">Villa Reserve</div>
     <div class="login-sub">Pool Villa Management</div>
   </div>
-  <div class="login-field" style="width:100%">
-    <label class="login-label">USERNAME</label>
-    <input class="login-input" id="li-user" type="text" placeholder="กรอก Username" autocomplete="username">
+  <div class="login-form-wrap">
+    <div class="login-field">
+      <label class="login-label">USERNAME</label>
+      <input class="login-input" id="li-user" type="text" placeholder="กรอก Username" autocomplete="username" onkeydown="if(event.key==='Enter')document.getElementById('li-pass').focus()">
+    </div>
+    <div class="login-field">
+      <label class="login-label">PASSWORD</label>
+      <input class="login-input" id="li-pass" type="password" placeholder="กรอก Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="login-btn" onclick="doLogin()">เข้าสู่ระบบ</button>
+    <div class="login-error" id="login-err"></div>
   </div>
-  <div class="login-field" style="width:100%">
-    <label class="login-label">PASSWORD</label>
-    <input class="login-input" id="li-pass" type="password" placeholder="กรอก Password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
-  </div>
-  <button class="login-btn" onclick="doLogin()">เข้าสู่ระบบ</button>
-  <div class="login-error" id="login-err"></div>
 </div>
 
 <!-- HOME SCREEN -->
@@ -333,8 +336,8 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
 
   <!-- DATA BACKUP ROW -->
   <div style="display:flex;gap:10px;margin-top:20px;width:100%;">
-    <button onclick="exportData()" style="flex:1;background:var(--white);border:1.5px solid var(--border2);border-radius:12px;padding:13px;font-family:'Sarabun',sans-serif;font-size:13px;color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;font-weight:500;box-shadow:0 1px 6px rgba(0,0,0,.06);">📤 Export ข้อมูล</button>
-    <label style="flex:1;background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:13px;font-family:'Sarabun',sans-serif;font-size:13px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;font-weight:500;box-shadow:0 1px 6px rgba(0,0,0,.06);">📥 Import ข้อมูล<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
+    <button onclick="exportData()" style="flex:1;background:var(--white);border:1.5px solid var(--border2);border-radius:12px;padding:13px;font-family:'Prompt',sans-serif;font-size:13px;color:var(--gold);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;font-weight:500;box-shadow:0 1px 6px rgba(0,0,0,.06);">📤 Export ข้อมูล</button>
+    <label style="flex:1;background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:13px;font-family:'Prompt',sans-serif;font-size:13px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px;font-weight:500;box-shadow:0 1px 6px rgba(0,0,0,.06);">📥 Import ข้อมูล<input type="file" accept=".json" onchange="importData(event)" style="display:none"></label>
   </div>
   <div style="font-size:10px;color:var(--text3);margin-top:8px;text-align:center;letter-spacing:.03em;">Export ก่อนอัปเดทเพื่อป้องกันข้อมูลหาย</div>
 </div>
@@ -486,7 +489,7 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
     <div class="fg">
       <label class="flabel">เงินมัดจำ (จ่ายก่อนเข้าพัก)</label>
       <div style="display:flex;gap:8px;align-items:center;margin-bottom:6px">
-        <button type="button" onclick="setDeposit50()" style="flex:1;padding:9px;border-radius:8px;background:var(--gold-bg);border:1.5px solid var(--border2);color:var(--gold);font-family:'Sarabun',sans-serif;font-size:12px;font-weight:500;cursor:pointer;">⚡ คิด 50% อัตโนมัติ</button>
+        <button type="button" onclick="setDeposit50()" style="flex:1;padding:9px;border-radius:8px;background:var(--gold-bg);border:1.5px solid var(--border2);color:var(--gold);font-family:'Prompt',sans-serif;font-size:12px;font-weight:500;cursor:pointer;">⚡ คิด 50% อัตโนมัติ</button>
         <input class="finput" id="f-deposit" type="number" placeholder="หรือกรอกเอง" oninput="calcTotal()" style="flex:1.2">
       </div>
       <select class="fselect" id="f-deposit-status" onchange="calcTotal()"><option value="unpaid">⏳ ยังไม่ได้รับมัดจำ</option><option value="paid">✅ รับมัดจำแล้ว</option></select>
@@ -567,12 +570,12 @@ body{background:var(--bg);color:var(--text);font-family:'Sarabun',sans-serif;fon
         <div style="display:flex;gap:8px;">
           <div style="flex:1;background:var(--orange-bg);border:1px solid rgba(184,106,16,.2);border-radius:10px;padding:10px 12px;text-align:center;">
             <div style="font-size:10px;color:var(--orange);margin-bottom:3px;">💳 มัดจำก่อนเข้าพัก</div>
-            <div id="sum-deposit-amt" style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--orange);">฿0</div>
+            <div id="sum-deposit-amt" style="font-family:'Prompt',sans-serif;font-size:20px;color:var(--orange);">฿0</div>
             <div id="sum-deposit-status-txt" style="font-size:9px;color:var(--text3);margin-top:2px;">ยังไม่ได้รับ</div>
           </div>
           <div style="flex:1;background:var(--green-bg);border:1px solid rgba(46,125,82,.2);border-radius:10px;padding:10px 12px;text-align:center;">
             <div style="font-size:10px;color:var(--green);margin-bottom:3px;">🏠 คงเหลือหลังเข้าพัก</div>
-            <div id="sum-remain-amt" style="font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--green);">฿0</div>
+            <div id="sum-remain-amt" style="font-family:'Prompt',sans-serif;font-size:20px;color:var(--green);">฿0</div>
             <div style="font-size:9px;color:var(--text3);margin-top:2px;">ชำระวันเช็คเอาท์</div>
           </div>
         </div>
@@ -1208,7 +1211,7 @@ function showSyncStatus(state){
   if(!el){
     el=document.createElement('div');
     el.id='syncStatus';
-    el.style.cssText='position:fixed;top:10px;right:12px;z-index:9000;font-size:10px;padding:3px 9px;border-radius:10px;letter-spacing:.03em;transition:all .3s;font-family:Sarabun,sans-serif;';
+    el.style.cssText='position:fixed;top:10px;right:12px;z-index:9000;font-size:10px;padding:3px 9px;border-radius:10px;letter-spacing:.03em;transition:all .3s;font-family:Prompt,sans-serif;';
     document.body.appendChild(el);
   }
   if(state==='saving'){el.style.background='#FFF3CD';el.style.color='#856404';el.style.border='1px solid #FFEAA7';el.textContent='⏳ กำลังบันทึก...';}
@@ -1305,7 +1308,6 @@ const _origSave=save;
 save=function(){_origSave();saveData();updateHomeMeta();};
 const _origQs=qs;
 qs=function(id,s){_origQs(id,s);saveData();};
-const _origDel=del;
 del=function(id){
   document.getElementById('confirmIcon').textContent='🗑️';
   document.getElementById('confirmTitle').textContent='ลบการจอง?';
@@ -1315,7 +1317,7 @@ del=function(id){
     bs=bs.filter(b=>b.id!==id);
     document.getElementById('confirmOv').classList.remove('open');
     cls('detOv');
-    renderCal();renderList();updStats();updateHomeMeta();saveData();
+    renderCal();renderList();updStats();updateHomeMeta();renderTodayNotif();saveData();
     document.getElementById('confirmIcon').textContent='🗑️';
     document.getElementById('confirmTitle').textContent='ลบการจอง?';
     document.getElementById('confirmMsg').innerHTML='การจองนี้จะถูกลบออกถาวร<br>ไม่สามารถกู้คืนได้';
