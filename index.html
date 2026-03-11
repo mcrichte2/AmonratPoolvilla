@@ -1180,9 +1180,9 @@ let isSyncing=false;
 async function fbGet(path){
   try{
     const r=await fetch(FB_URL+path+'.json');
-    if(!r.ok)throw new Error('fetch failed');
+    if(!r.ok){console.error('fbGet HTTP error',r.status,r.statusText);throw new Error('HTTP '+r.status);}
     return await r.json();
-  }catch(e){console.warn('fbGet error',e);return null;}
+  }catch(e){console.error('fbGet error',path,e.message);return null;}
 }
 async function fbSet(path,data){
   try{
@@ -1191,9 +1191,9 @@ async function fbSet(path,data){
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(data)
     });
-    if(!r.ok)throw new Error('set failed');
+    if(!r.ok){console.error('fbSet HTTP error',r.status,r.statusText);throw new Error('HTTP '+r.status);}
     return true;
-  }catch(e){console.warn('fbSet error',e);return false;}
+  }catch(e){console.error('fbSet error',path,e.message);return false;}
 }
 async function fbPatch(path,data){
   try{
@@ -1202,8 +1202,9 @@ async function fbPatch(path,data){
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify(data)
     });
+    if(!r.ok){console.error('fbPatch HTTP error',r.status);}
     return r.ok;
-  }catch(e){return false;}
+  }catch(e){console.error('fbPatch error',e.message);return false;}
 }
 
 function showSyncStatus(state){
@@ -1371,6 +1372,16 @@ function showToast(msg){
 }
 
 /* ============ LOAD ON START ============ */
+fetch(FB_URL+'/.json?shallow=true')
+  .then(r=>{
+    console.log('Firebase response status:',r.status);
+    if(!r.ok)showToast('❌ Firebase error: HTTP '+r.status);
+  })
+  .catch(e=>{
+    console.error('Firebase fetch failed:',e);
+    showToast('❌ ต่อ Firebase ไม่ได้: '+e.message);
+  });
+
 loadData().then(()=>{
   renderCal();updStats();renderList();updateHomeMeta();
   startPolling();
