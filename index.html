@@ -1242,22 +1242,30 @@ async function saveImgs(){
 
 async function loadData(){
   showSyncStatus('saving');
-  // try Firebase first
   try{
     const d=await fbGet(FB_PATH);
     if(d&&d.bs&&Array.isArray(d.bs)){
-      // restore slips
       const slips=d.slips||{};
       bs=d.bs.map(b=>({...b,slip:b.slip==='__has_slip__'?(slips['s'+b.id]||null):b.slip}));
       if(d.nid)nid=d.nid;
-      // load images
       const imgs=await fbGet(FB_PATH+'/pImgs');
       if(imgs){pImgs[0]=imgs.img0||null;pImgs[1]=imgs.img1||null;}
       try{localStorage.setItem('vr_cache',JSON.stringify({bs,pImgs,nid}));}catch(e){}
       showSyncStatus('ok');
       return true;
+    } else {
+      // Firebase reachable but empty - still ok
+      showSyncStatus('ok');
+      // try local cache
+      try{
+        const raw=localStorage.getItem('vr_cache');
+        if(raw){const d=JSON.parse(raw);if(d.bs)bs=d.bs;if(d.pImgs){pImgs[0]=d.pImgs[0];pImgs[1]=d.pImgs[1];}if(d.nid)nid=d.nid;}
+      }catch(e){}
+      return true;
     }
-  }catch(e){console.warn('Firebase load failed, using cache');}
+  }catch(e){
+    console.warn('Firebase load failed, using cache',e);
+  }
   // fallback to local cache
   try{
     const raw=localStorage.getItem('vr_cache');
